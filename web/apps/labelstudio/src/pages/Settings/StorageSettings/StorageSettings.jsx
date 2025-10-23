@@ -6,6 +6,8 @@ import { useProject } from "../../../providers/ProjectProvider";
 import { cn } from "../../../utils/bem";
 import { isInLicense, LF_CLOUD_STORAGE_FOR_MANAGERS } from "../../../utils/license-flags";
 import { StorageSet } from "./StorageSet";
+import { useTranslation } from "react-i18next";
+import i18n from "@humansignal/core/lib/i18n";
 
 const isAllowCloudStorage = !isInLicense(LF_CLOUD_STORAGE_FOR_MANAGERS);
 
@@ -15,8 +17,9 @@ export const StorageSettings = () => {
   const history = useHistory();
   const location = useLocation();
   const sourceStorageRef = useRef();
+  const { t } = useTranslation();
 
-  useUpdatePageTitle(createTitleFromSegments([project?.title, "Cloud Storage Settings"]));
+  useUpdatePageTitle(createTitleFromSegments([project?.title, t("settings.storage.pageTitle")]));
 
   // Handle auto-open query parameter
   useEffect(() => {
@@ -35,24 +38,24 @@ export const StorageSettings = () => {
   return isAllowCloudStorage ? (
     <section className="max-w-[680px]">
       <Typography variant="headline" size="medium" className="mb-base">
-        Cloud Storage
+        {t("settings.storage.title")}
       </Typography>
       <Typography size="small" className="text-neutral-content-subtler mb-wider">
-        Use cloud or database storage as the source for your labeling tasks or the target of your completed annotations.
+        {t("settings.storage.description")}
       </Typography>
 
       <div className="grid grid-cols-2 gap-8">
         <StorageSet
           ref={sourceStorageRef}
-          title="Source Cloud Storage"
-          buttonLabel="Add Source Storage"
+          title={t("settings.storage.source.title")}
+          buttonLabel={t("settings.storage.source.button")}
           rootClass={rootClass}
         />
 
         <StorageSet
-          title="Target Cloud Storage"
+          title={t("settings.storage.target.title")}
           target="export"
-          buttonLabel="Add Target Storage"
+          buttonLabel={t("settings.storage.target.button")}
           rootClass={rootClass}
         />
       </div>
@@ -60,5 +63,5 @@ export const StorageSettings = () => {
   ) : null;
 };
 
-StorageSettings.title = "Cloud Storage";
+StorageSettings.title = () => i18n.t("settings.menu.storage");
 StorageSettings.path = "/storage";

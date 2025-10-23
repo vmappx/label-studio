@@ -4,12 +4,14 @@ import { Button } from "@humansignal/ui";
 import { ApiContext } from "../../../providers/ApiProvider";
 import { StorageSummary } from "./StorageSummary";
 import { IconEllipsisVertical } from "@humansignal/icons";
+import { useTranslation } from "react-i18next";
 
 export const StorageCard = ({ rootClass, target, storage, onEditStorage, onDeleteStorage, storageTypes }) => {
   const [syncing, setSyncing] = useState(false);
   const api = useContext(ApiContext);
   const [storageData, setStorageData] = useState({ ...storage });
   const [synced, setSynced] = useState(null);
+  const { t } = useTranslation();
 
   const startSync = useCallback(async () => {
     setSyncing(true);
@@ -39,18 +41,20 @@ export const StorageCard = ({ rootClass, target, storage, onEditStorage, onDelet
 
   return (
     <Card
-      header={storageData.title ?? `Untitled ${storageData.type}`}
+      header={storageData.title ?? t("settings.storage.card.untitled", { type: storageData.type })}
       extra={
         <Dropdown.Trigger
           align="right"
           content={
             <Menu size="compact" style={{ width: 110 }}>
-              <Menu.Item onClick={() => onEditStorage(storageData)}>Edit</Menu.Item>
-              <Menu.Item onClick={() => onDeleteStorage(storageData)}>Delete</Menu.Item>
+              <Menu.Item onClick={() => onEditStorage(storageData)}>{t("settings.storage.card.menu.edit")}</Menu.Item>
+              <Menu.Item onClick={() => onDeleteStorage(storageData)}>
+                {t("settings.storage.card.menu.delete")}
+              </Menu.Item>
             </Menu>
           }
         >
-          <Button look="string" className="-ml-3" aria-label="Storage options">
+          <Button look="string" className="-ml-3" aria-label={t("settings.storage.card.optionsAria")}>
             <IconEllipsisVertical />
           </Button>
         </Dropdown.Trigger>
@@ -69,13 +73,13 @@ export const StorageCard = ({ rootClass, target, storage, onEditStorage, onDelet
             waiting={syncing}
             onClick={startSync}
             disabled={notSyncedYet}
-            aria-label="Sync Storage"
+            aria-label={t("settings.storage.card.syncAria")}
           >
-            Sync Storage
+            {t("settings.storage.card.sync")}
           </Button>
           {notSyncedYet && (
             <div className={rootClass.elem("sync-count")}>
-              Syncing may take some time, please refresh the page to see the current status.
+              {t("settings.storage.card.syncHint")}
             </div>
           )}
         </div>

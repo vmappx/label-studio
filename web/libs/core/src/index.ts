@@ -9,6 +9,7 @@ export * from "./lib/utils/bem";
 export * from "./hooks/useAbortController";
 export * from "./lib/hooks/useCopyText";
 export * from "./hooks/usePageTitle";
+export * from "./lib/i18n";
 
 // API Provider
 export {
@@ -17,6 +18,7 @@ export {
   useAPI,
   errorFormatter,
 } from "./providers/api-provider";
+export { I18nProvider } from "./providers/I18nProvider";
 export {
   createApiInstance,
   getApiInstance,

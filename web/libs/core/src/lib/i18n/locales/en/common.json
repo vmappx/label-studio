@@ -1,0 +1,496 @@
+{
+  "language": {
+    "english": "English",
+    "chinese": "中文",
+    "toggle": "Language"
+  },
+  "actions": {
+    "createProject": "Create Project",
+    "inviteMembers": "Invite Members",
+    "viewAll": "View All",
+    "cancel": "Cancel",
+    "save": "Save",
+    "learnMore": "Learn more"
+  },
+  "menu": {
+    "keyboardShortcuts": "Keyboard Shortcuts",
+    "accountSettings": "Account & Settings",
+    "logOut": "Log Out",
+    "notificationsPrompt": "Please check new notification settings in the Account & Settings page",
+    "home": "Home",
+    "projects": "Projects",
+    "organization": "Organization",
+    "api": "API",
+    "docs": "Docs",
+    "github": "GitHub",
+    "slack": "Slack Community",
+    "pin": "Pin menu",
+    "unpin": "Unpin menu"
+  },
+  "toast": {
+    "hotkeys": "Keyboard Shortcuts"
+  },
+  "shared": {
+    "or": "or"
+  },
+  "home": {
+    "pageTitle": "Home",
+    "hero": {
+      "welcome": "Welcome 👋",
+      "subtitle": "Let's get you started."
+    },
+    "actions": {
+      "createProject": "Create Project",
+      "inviteMembers": "Invite Members"
+    },
+    "recentProjects": {
+      "title": "Recent Projects",
+      "viewAll": "View All",
+      "loading": "Loading projects…",
+      "error": "Can't load projects",
+      "emptyTitle": "Create your first project",
+      "emptyDescription": "Import your data and set up the labeling interface to start annotating",
+      "emptyAction": "Create Project"
+    },
+    "resources": {
+      "title": "Resources",
+      "description": "Learn, explore and get help",
+      "items": {
+        "docs": "Documentation",
+        "api": "API Documentation",
+        "releases": "Release Notes",
+        "blog": "Label Studio Blog",
+        "slack": "Slack Community"
+      }
+    },
+    "version": "Label Studio Version: Community",
+    "projectCard": {
+      "progress": "{{finished}} of {{total}} Tasks ({{percent}}%)"
+    }
+  },
+  "projects": {
+    "pageTitle": "Projects",
+    "paginationLabel": "Projects",
+    "contextAction": {
+      "create": "Create"
+    },
+    "createProject": {
+      "modal": {
+        "title": "Create Project",
+        "cancel": "Cancel",
+        "save": "Save",
+        "cancelAria": "Cancel project creation"
+      },
+      "tabs": {
+        "projectName": "Project Name",
+        "dataImport": "Data Import",
+        "labelingSetup": "Labeling Setup"
+      },
+      "form": {
+        "nameLabel": "Project Name",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Optional description of your project",
+        "workspaceLabel": "Workspace",
+        "workspacePlaceholder": "Select an option",
+        "workspaceHelper": "Simplify project management by organizing projects into workspaces.",
+        "workspaceLearnMore": "Learn more"
+      },
+      "import": {
+        "datasetUrlPlaceholder": "Dataset URL",
+        "addUrl": "Add URL",
+        "addUrlAria": "Add dataset URL",
+        "uploadFileAria": "Upload file",
+        "uploadFiles": "Upload files",
+        "uploadMoreFiles": "Upload more files",
+        "csvHandling": {
+          "title": "Treat CSV/TSV as",
+          "tasks": "List of tasks",
+          "timeSeries": "Time series or whole text file"
+        },
+        "status": {
+          "filesUploaded": "{{count}} files uploaded"
+        },
+        "dropzone": {
+          "title": "Drag & drop files here",
+          "subtitle": "or click to browse",
+          "categories": {
+            "images": "Images",
+            "audio": "Audio",
+            "video": "Video",
+            "html": "HTML / HyperText",
+            "text": "Text",
+            "structured": "Structured data",
+            "pdf": "PDF"
+          },
+          "videoTooltip": "Video format support depends on your browser. Click to learn more.",
+          "videoAria": "Learn more about video format support (opens in a new tab)",
+          "tips": {
+            "title": "Important:",
+            "cloudStorage": "We recommend <storageLink>Cloud Storage</storageLink> over direct uploads due to <limitationsLink>upload limitations</limitationsLink>.",
+            "cloudStorageAria": "Cloud Storage documentation (opens in a new tab)",
+            "uploadLimitationsAria": "Upload limitations documentation (opens in a new tab)",
+            "pdf": "For PDFs, use <pdfLink>multi-image labeling</pdfLink>. JSONL or Parquet (Enterprise only) files require cloud storage.",
+            "pdfLinkAria": "Multi-image labeling documentation (opens in a new tab)",
+            "predictions": "Check the documentation to <predictionsLink>import preannotated data</predictionsLink>.",
+            "predictionsLinkAria": "Import preannotated data documentation (opens in a new tab)"
+          }
+        },
+        "files": {
+          "title": "Files"
+        },
+        "sampleBadge": "Sample",
+        "preview": {
+          "title": "Expected Input Preview",
+          "error": "Something went wrong, the sample data could not be loaded.",
+          "viewJson": "View JSON input format",
+          "setupPrefix": "Set up your",
+          "configureLink": "labeling configuration",
+          "setupSuffix": "first to preview the expected JSON data format"
+        },
+        "errors": {
+          "fileTooBig": "Imported file is too big"
+        }
+      }
+    },
+    "empty": {
+      "title": "Heidi doesn’t see any projects here!",
+      "description": "Create one and start labeling your data.",
+      "action": "Create Project"
+    },
+    "card": {
+      "defaultTitle": "New project",
+      "menu": {
+        "ariaLabel": "Project options",
+        "settings": "Settings",
+        "label": "Label"
+      },
+      "createAria": "Create new project"
+    }
+  },
+  "settings": {
+    "pageTitle": "Settings",
+    "menu": {
+      "general": "General",
+      "labeling": "Labeling",
+      "annotation": "Annotation",
+      "machineLearning": "Machine Learning",
+      "predictions": "Predictions",
+      "storage": "Storage",
+      "webhooks": "Webhooks",
+      "dangerZone": "Danger Zone"
+    },
+    "common": {
+      "saved": "Saved"
+    },
+    "general": {
+      "title": "General",
+      "form": {
+        "nameLabel": "Project name",
+        "descriptionLabel": "Description",
+        "workspaceLabel": "Workspace",
+        "workspacePlaceholder": "Select an option",
+        "workspaceHelper": "Simplify project management by organizing projects into <link>workspaces</link>.",
+        "colorLabel": "Project color",
+        "saved": "Saved",
+        "saveAria": "Save project settings"
+      },
+      "sampling": {
+        "title": "Task sampling",
+        "options": {
+          "sequential": {
+            "label": "Sequential sampling",
+            "description": "Assign tasks to annotators in a consistent, sequential order."
+          },
+          "uniform": {
+            "label": "Uniform sampling",
+            "description": "Randomly distribute tasks so each task has an equal chance of being selected."
+          },
+          "uncertainty": {
+            "label": "Uncertainty sampling",
+            "description": "Prioritize tasks with the highest model uncertainty. Available in <link>workspaces</link>."
+          }
+        }
+      }
+    },
+    "annotation": {
+      "pageTitle": "Annotation",
+      "title": "Annotation",
+      "instructions": {
+        "header": "Instructions",
+        "description1": "Provide clear, concise directions so annotators know how to complete each task.",
+        "description2": "Use HTML to format the content, or link to external documentation for deeper context.",
+        "showBeforeLabeling": "Show instructions before labeling starts"
+      },
+      "prelabeling": {
+        "title": "Prelabeling",
+        "toggleLabel": "Show model predictions to annotators",
+        "toggleDescription": "Display predictions generated by connected machine learning backends."
+      },
+      "form": {
+        "saveAria": "Save annotation settings"
+      },
+      "modelVersion": {
+        "label": "Model version",
+        "placeholder": "Select a model version",
+        "groups": {
+          "models": "Live models",
+          "predictions": "Historical predictions"
+        },
+        "versionLabel": "Version {{version}} ({{count}} predictions)",
+        "empty": "No model versions available yet."
+      }
+    },
+    "labeling": {
+      "pageTitle": "Labeling"
+    },
+    "machineLearning": {
+      "pageTitle": "Machine Learning",
+      "title": "Machine learning backends",
+      "modals": {
+        "startTraining": "Start training",
+        "testRequest": "Send test request",
+        "editModel": "Edit model",
+        "connectModel": "Connect model"
+      },
+      "emptyState": {
+        "title": "Connect your first machine learning backend",
+        "description": "Link a model endpoint to send test requests, launch training, and serve predictions.",
+        "action": "Connect model",
+        "actionAria": "Open machine learning connection form",
+        "learnMoreAria": "Open documentation about machine learning backends"
+      },
+      "guidance": {
+        "intro": "Tips for keeping your model-assisted labeling workflow healthy:",
+        "step1": "1. <italic>Validate the setup:</italic> send a quick test request to make sure the backend answers correctly.",
+        "step2": "2. Re-sync often so annotators always see the most recent predictions.",
+        "step3": "3. <italic>Retrain regularly:</italic> schedule training after major annotation batches to keep models fresh.",
+        "prelabeling": "Want predictions in the interface? Enable them in <link>Annotation settings</link>."
+      },
+      "form": {
+        "configuration": "Default behavior",
+        "toggleLabel": "Start training when annotations change",
+        "toggleDescription": "Automatically trigger training when the labeling configuration or annotations are updated.",
+        "saveAria": "Save machine learning settings",
+        "nameLabel": "Display name",
+        "namePlaceholder": "My model backend",
+        "urlLabel": "Endpoint URL",
+        "authMethodLabel": "Authentication method",
+        "authMethods": {
+          "none": "No authentication",
+          "basic": "Basic authentication"
+        },
+        "basicAuthUser": "Username",
+        "basicAuthPass": "Password",
+        "extraParams": "Extra parameters (JSON)",
+        "interactiveLabel": "Allow interactive mode",
+        "interactiveDescription": "Let the backend request additional context during labeling sessions.",
+        "validateAria": "Validate and save backend",
+        "validateAndSave": "Validate & Save",
+        "errorUpdate": "Couldn't update the model. Check the error details below.",
+        "errorCreate": "Couldn't connect the model. Check the error details below."
+      },
+      "list": {
+        "confirmDelete": {
+          "title": "Delete model",
+          "message": "Are you sure you want to delete this machine learning backend?"
+        },
+        "menu": {
+          "edit": "Edit",
+          "sendTest": "Send test request",
+          "startTraining": "Start training",
+          "delete": "Delete"
+        },
+        "optionsAria": "Open machine learning options",
+        "created": "Created {{time}}",
+        "status": {
+          "disconnected": "Disconnected",
+          "connected": "Connected",
+          "error": "Error",
+          "training": "Training",
+          "predicting": "Predicting"
+        }
+      },
+      "testRequest": {
+        "send": "Send test request",
+        "description": "Sends a prediction request with a random task so you can verify the response.",
+        "request": "Request",
+        "response": "Response"
+      },
+      "startTraining": {
+        "description": "Kick off a training job using the latest annotations in this project.",
+        "note": "You’ll receive a notification in the backend list when the job finishes.",
+        "action": "Start training",
+        "requestSent": "Training request sent.",
+        "responseLabel": "Backend response"
+      }
+    },
+    "predictions": {
+      "pageTitle": "Predictions",
+      "title": "Predictions",
+      "list": {
+        "title": "Prediction versions",
+        "description": "Learn how versions work in the <link>predictions documentation</link>.",
+        "confirmDelete": {
+          "title": "Delete prediction version",
+          "message": "Are you sure you want to delete this prediction version?"
+        },
+        "undefinedTooltip": "Predictions created before model version tracking appear under “undefined”.",
+        "lastCreated": "Last created",
+        "menu": {
+          "delete": "Delete"
+        }
+      },
+      "empty": {
+        "title": "No predictions yet",
+        "description": "Connect a model or import prediction results to see them here.",
+        "learnMoreAria": "Open documentation about predictions"
+      }
+    },
+    "storage": {
+      "pageTitle": "Storage",
+      "title": "Cloud storage",
+      "description": "Connect import and export storage to keep your project data in sync.",
+      "source": {
+        "title": "Import storage",
+        "button": "Connect import storage"
+      },
+      "target": {
+        "title": "Export storage",
+        "button": "Connect export storage"
+      },
+      "modal": {
+        "title": "{{action}} {{target}} storage",
+        "actions": {
+          "edit": "Edit",
+          "connect": "Connect"
+        },
+        "targets": {
+          "import": "import",
+          "export": "export"
+        }
+      },
+      "delete": {
+        "title": "Delete storage",
+        "message": "Are you sure you want to delete this storage connection? This action cannot be undone."
+      },
+      "addStorageAria": "Connect a new storage",
+      "form": {
+        "typeLabel": "Storage type",
+        "connectionSuccess": "Connection successful",
+        "connectionFailed": "Connection failed",
+        "testConnectionAria": "Test storage connection",
+        "testConnection": "Test connection",
+        "saveAria": "Save storage configuration",
+        "addAria": "Add storage configuration",
+        "save": "Save",
+        "add": "Add"
+      },
+      "card": {
+        "untitled": "Untitled {{type}} storage",
+        "menu": {
+          "edit": "Edit",
+          "delete": "Delete"
+        },
+        "optionsAria": "Open storage options",
+        "syncAria": "Sync storage now",
+        "sync": "Sync now",
+        "syncHint": "Sync is already in progress or queued. Refresh to see the latest status."
+      },
+      "summary": {
+        "copy": "Copy logs",
+        "copySuccess": "Copied",
+        "status": {
+          "help": [
+            "Queued: sync job is in the queue, but not yet started.",
+            "In progress: sync job is running.",
+            "Completed: sync finished successfully.",
+            "Completed with errors: sync finished but some records failed.",
+            "Failed: sync stopped because an error occurred."
+          ],
+          "values": {
+            "queued": "Queued",
+            "in_progress": "In progress",
+            "completed": "Completed",
+            "completed_with_errors": "Completed with errors",
+            "failed": "Failed"
+          }
+        },
+        "tasks": {
+          "added": "Added {{count}} new tasks during the last sync.",
+          "total": "{{existing}} tasks already synced, {{total}} tasks total.",
+          "addedLabel": "{{count}} new"
+        },
+        "annotations": {
+          "added": "Added {{count}} new annotations during the last sync.",
+          "total": "{{total}} annotations total.",
+          "totalLabel": "total: {{total}}"
+        },
+        "logs": {
+          "title": "Error logs",
+          "documentation": "Need help? Visit the <link>storage troubleshooting guide</link>.",
+          "docsAria": "Open the storage troubleshooting guide in a new tab",
+          "close": "Close",
+          "view": "View logs"
+        },
+        "fields": {
+          "type": "Type",
+          "status": "Status",
+          "annotations": "Annotations",
+          "tasks": "Tasks",
+          "lastSync": "Last sync",
+          "bucket": "Bucket",
+          "container": "Container",
+          "path": "Path",
+          "host": "Host"
+        },
+        "notSynced": "Not synced yet"
+      }
+    },
+    "dangerZone": {
+      "title": "Danger Zone",
+      "description": "Perform these actions at your own risk. They can't be undone, so make sure your data is backed up.",
+      "confirmation": {
+        "inputLabel": "To proceed, type \"{{word}}\" in the field below:",
+        "cancel": "Cancel"
+      },
+      "actions": {
+        "annotations": {
+          "label": "Delete {{count}} annotations"
+        },
+        "tasks": {
+          "label": "Delete {{count}} tasks"
+        },
+        "predictions": {
+          "label": "Delete {{count}} predictions"
+        },
+        "resetCache": {
+          "title": "Reset cache",
+          "message": "You are about to reset the cache for <strong>{{project}}</strong>. This action cannot be undone.",
+          "confirmWord": "cache",
+          "button": "Reset cache",
+          "help": "Reset cache if you can't update the labeling configuration because of stale label validation errors."
+        },
+        "tabs": {
+          "title": "Drop all tabs",
+          "message": "You are about to drop all tabs for <strong>{{project}}</strong>. This action cannot be undone.",
+          "confirmWord": "tabs",
+          "button": "Drop all tabs",
+          "help": "If the Data Manager isn't loading, dropping all Data Manager tabs can help."
+        },
+        "project": {
+          "title": "Delete project",
+          "message": "You are about to delete the project <strong>{{project}}</strong>. This action cannot be undone.",
+          "confirmWord": "delete",
+          "button": "Delete project",
+          "help": "Deleting a project removes all tasks, annotations, and project data from the database."
+        }
+      },
+      "toast": {
+        "resetCache": "Cache reset successfully",
+        "tabs": "All tabs dropped successfully",
+        "project": "Project deleted successfully",
+        "error": "Error: {{message}}"
+      }
+    }
+  }
+}

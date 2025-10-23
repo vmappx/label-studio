@@ -7,10 +7,12 @@ import { Userpic, Button } from "@humansignal/ui";
 import { Dropdown, Menu, Pagination } from "../../components";
 import { Block, Elem } from "../../utils/bem";
 import { absoluteURL } from "../../utils/helpers";
+import { useTranslation } from "react-i18next";
 
 const DEFAULT_CARD_COLORS = ["#FFFFFF", "#FDFDFC"];
 
 export const ProjectsList = ({ projects, currentPage, totalItems, loadNextPage, pageSize }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Elem name="list">
@@ -21,7 +23,7 @@ export const ProjectsList = ({ projects, currentPage, totalItems, loadNextPage, 
       <Elem name="pages">
         <Pagination
           name="projects-list"
-          label="Projects"
+          label={t("projects.paginationLabel")}
           page={currentPage}
           totalItems={totalItems}
           urlParamName="page"
@@ -35,21 +37,23 @@ export const ProjectsList = ({ projects, currentPage, totalItems, loadNextPage, 
 };
 
 export const EmptyProjectsList = ({ openModal }) => {
+  const { t } = useTranslation();
   return (
     <Block name="empty-projects-page">
       <Elem name="heidi" tag="img" src={absoluteURL("/static/images/opossum_looking.png")} />
       <Elem name="header" tag="h1">
-        Heidi doesn’t see any projects here!
+        {t("projects.empty.title")}
       </Elem>
-      <p>Create one and start labeling your data.</p>
-      <Button onClick={openModal} className="my-8" aria-label="Create new project">
-        Create Project
+      <p>{t("projects.empty.description")}</p>
+      <Button onClick={openModal} className="my-8" aria-label={t("projects.card.createAria")}>
+        {t("projects.empty.action")}
       </Button>
     </Block>
   );
 };
 
 const ProjectCard = ({ project }) => {
+  const { t } = useTranslation();
   const color = useMemo(() => {
     return DEFAULT_CARD_COLORS.includes(project.color) ? null : project.color;
   }, [project]);
@@ -74,7 +78,7 @@ const ProjectCard = ({ project }) => {
       <Block name="project-card" mod={{ colored: !!color }} style={projectColors}>
         <Elem name="header">
           <Elem name="title">
-            <Elem name="title-text">{project.title ?? "New project"}</Elem>
+            <Elem name="title-text">{project.title ?? t("projects.card.defaultTitle")}</Elem>
 
             <Elem
               name="menu"
@@ -86,12 +90,14 @@ const ProjectCard = ({ project }) => {
               <Dropdown.Trigger
                 content={
                   <Menu contextual>
-                    <Menu.Item href={`/projects/${project.id}/settings`}>Settings</Menu.Item>
-                    <Menu.Item href={`/projects/${project.id}/data?labeling=1`}>Label</Menu.Item>
+                    <Menu.Item href={`/projects/${project.id}/settings`}>{t("projects.card.menu.settings")}</Menu.Item>
+                    <Menu.Item href={`/projects/${project.id}/data?labeling=1`}>
+                      {t("projects.card.menu.label")}
+                    </Menu.Item>
                   </Menu>
                 }
               >
-                <Button size="smaller" look="string" aria-label="Project options">
+                <Button size="smaller" look="string" aria-label={t("projects.card.menu.ariaLabel")}>
                   <IconEllipsis />
                 </Button>
               </Dropdown.Trigger>

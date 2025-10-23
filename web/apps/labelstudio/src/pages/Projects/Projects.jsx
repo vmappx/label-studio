@@ -12,6 +12,7 @@ import { DataManagerPage } from "../DataManager/DataManager";
 import { SettingsPage } from "../Settings";
 import { EmptyProjectsList, ProjectsList } from "./ProjectsList";
 import { useAbortController, useUpdatePageTitle } from "@humansignal/core";
+import { useTranslation } from "react-i18next";
 import "./Projects.scss";
 
 const getCurrentPage = () => {
@@ -28,8 +29,9 @@ export const ProjectsPage = () => {
   const [currentPage, setCurrentPage] = useState(getCurrentPage());
   const [totalItems, setTotalItems] = useState(1);
   const setContextProps = useContextProps();
+  const { t } = useTranslation();
 
-  useUpdatePageTitle("Projects");
+  useUpdatePageTitle(t("projects.pageTitle"));
   const defaultPageSize = Number.parseInt(localStorage.getItem("pages:projects-list") ?? 30);
 
   const [modal, setModal] = React.useState(false);
@@ -160,10 +162,11 @@ ProjectsPage.routes = ({ store }) => [
   },
 ];
 ProjectsPage.context = ({ openModal, showButton }) => {
+  const { t } = useTranslation();
   if (!showButton) return null;
   return (
-    <Button onClick={openModal} size="small" aria-label="Create new project">
-      Create
+    <Button onClick={openModal} size="small" aria-label={t("projects.card.createAria")}>
+      {t("projects.contextAction.create")}
     </Button>
   );
 };

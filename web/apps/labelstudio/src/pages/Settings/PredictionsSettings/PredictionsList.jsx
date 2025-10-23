@@ -8,6 +8,7 @@ import { Tooltip } from "@humansignal/ui";
 import { confirm } from "../../../components/Modal/Modal";
 import { ApiContext } from "../../../providers/ApiProvider";
 import { Block, cn } from "../../../utils/bem";
+import { useTranslation } from "react-i18next";
 
 import "./PredictionsList.scss";
 
@@ -39,20 +40,21 @@ export const PredictionsList = ({ project, versions, fetchVersions }) => {
 };
 
 const VersionCard = ({ version, selected, onSelect, editable, onDelete }) => {
+  const { t } = useTranslation();
   const rootClass = cn("prediction-card");
 
   const confirmDelete = useCallback(
     (version) => {
       confirm({
-        title: "Delete Predictions",
-        body: "This action cannot be undone. Are you sure?",
+        title: t("settings.predictions.list.confirmDelete.title"),
+        body: t("settings.predictions.list.confirmDelete.message"),
         buttonLook: "destructive",
         onOk() {
           onDelete?.(version);
         },
       });
     },
-    [version, onDelete],
+    [version, onDelete, t],
   );
 
   return (
@@ -61,7 +63,7 @@ const VersionCard = ({ version, selected, onSelect, editable, onDelete }) => {
         <div className={rootClass.elem("title")}>
           {version.model_version}
           {version.model_version === "undefined" && (
-            <Tooltip title="Model version is undefined. Likely means that model_version field was missing when predictions were imported.">
+            <Tooltip title={t("settings.predictions.list.undefinedTooltip")}>
               <IconInfoOutline className={cn("help-icon")} width="14" height="14" />
             </Tooltip>
           )}
@@ -72,7 +74,7 @@ const VersionCard = ({ version, selected, onSelect, editable, onDelete }) => {
             &nbsp;{version.count}
           </div>
           <div className={rootClass.elem("group")}>
-            Last prediction created&nbsp;
+            {t("settings.predictions.list.lastCreated")} &nbsp;
             <Tooltip title={format(parseISO(version.latest), "yyyy-MM-dd HH:mm:ss")}>
               <span>{formatDistanceToNow(parseISO(version.latest), { addSuffix: true })}</span>
             </Tooltip>
@@ -85,7 +87,7 @@ const VersionCard = ({ version, selected, onSelect, editable, onDelete }) => {
           content={
             <Menu size="medium" contextual>
               <Menu.Item onClick={() => confirmDelete(version)} isDangerous>
-                Delete
+                {t("settings.predictions.list.menu.delete")}
               </Menu.Item>
             </Menu>
           }

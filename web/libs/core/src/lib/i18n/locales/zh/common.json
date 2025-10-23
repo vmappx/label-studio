@@ -1,0 +1,496 @@
+{
+  "language": {
+    "english": "English",
+    "chinese": "中文",
+    "toggle": "语言"
+  },
+  "actions": {
+    "createProject": "创建项目",
+    "inviteMembers": "邀请成员",
+    "viewAll": "查看全部",
+    "cancel": "取消",
+    "save": "保存",
+    "learnMore": "了解更多"
+  },
+  "menu": {
+    "keyboardShortcuts": "键盘快捷键",
+    "accountSettings": "账号与设置",
+    "logOut": "退出登录",
+    "notificationsPrompt": "请在“账号与设置”页面检查新的通知设置",
+    "home": "主页",
+    "projects": "项目",
+    "organization": "组织",
+    "api": "API",
+    "docs": "文档",
+    "github": "GitHub",
+    "slack": "Slack 社区",
+    "pin": "固定菜单",
+    "unpin": "取消固定菜单"
+  },
+  "toast": {
+    "hotkeys": "键盘快捷键"
+  },
+  "shared": {
+    "or": "或"
+  },
+  "home": {
+    "pageTitle": "主页",
+    "hero": {
+      "welcome": "欢迎 👋",
+      "subtitle": "让我们开始吧。"
+    },
+    "actions": {
+      "createProject": "创建项目",
+      "inviteMembers": "邀请成员"
+    },
+    "recentProjects": {
+      "title": "最近项目",
+      "viewAll": "查看全部",
+      "loading": "正在加载项目…",
+      "error": "无法加载项目",
+      "emptyTitle": "创建你的第一个项目",
+      "emptyDescription": "导入数据并设置标注界面以开始标注",
+      "emptyAction": "创建项目"
+    },
+    "resources": {
+      "title": "资源",
+      "description": "学习、探索并获取帮助",
+      "items": {
+        "docs": "文档",
+        "api": "API 文档",
+        "releases": "发布说明",
+        "blog": "Label Studio 博客",
+        "slack": "Slack 社区"
+      }
+    },
+    "version": "Label Studio 版本：社区版",
+    "projectCard": {
+      "progress": "已完成 {{finished}} / {{total}} 个任务 ({{percent}}%)"
+    }
+  },
+  "projects": {
+    "pageTitle": "项目",
+    "paginationLabel": "项目",
+    "contextAction": {
+      "create": "新建"
+    },
+    "createProject": {
+      "modal": {
+        "title": "创建项目",
+        "cancel": "取消",
+        "save": "保存",
+        "cancelAria": "取消创建项目"
+      },
+      "tabs": {
+        "projectName": "项目名称",
+        "dataImport": "数据导入",
+        "labelingSetup": "标注配置"
+      },
+      "form": {
+        "nameLabel": "项目名称",
+        "descriptionLabel": "描述",
+        "descriptionPlaceholder": "为项目写一个可选的简介",
+        "workspaceLabel": "工作区",
+        "workspacePlaceholder": "请选择",
+        "workspaceHelper": "通过将项目组织到工作区来简化项目管理。",
+        "workspaceLearnMore": "了解更多"
+      },
+      "import": {
+        "datasetUrlPlaceholder": "数据集 URL",
+        "addUrl": "添加 URL",
+        "addUrlAria": "添加数据集 URL",
+        "uploadFileAria": "上传文件",
+        "uploadFiles": "上传文件",
+        "uploadMoreFiles": "继续上传文件",
+        "csvHandling": {
+          "title": "将 CSV/TSV 处理为",
+          "tasks": "任务列表",
+          "timeSeries": "时间序列或整篇文本"
+        },
+        "status": {
+          "filesUploaded": "已上传 {{count}} 个文件"
+        },
+        "dropzone": {
+          "title": "拖拽文件到此处",
+          "subtitle": "或点击以浏览",
+          "categories": {
+            "images": "图像",
+            "audio": "音频",
+            "video": "视频",
+            "html": "HTML / 超文本",
+            "text": "文本",
+            "structured": "结构化数据",
+            "pdf": "PDF"
+          },
+          "videoTooltip": "视频格式支持取决于浏览器。点击了解更多。",
+          "videoAria": "了解视频格式支持（将在新标签页打开）",
+          "tips": {
+            "title": "重要提示：",
+            "cloudStorage": "我们建议使用 <storageLink>云存储</storageLink>，以避免 <limitationsLink>上传限制</limitationsLink>。",
+            "cloudStorageAria": "云存储文档（新标签页打开）",
+            "uploadLimitationsAria": "上传限制文档（新标签页打开）",
+            "pdf": "对于 PDF，请使用 <pdfLink>多图像标注</pdfLink>。JSONL 或 Parquet（仅企业版）文件需要云存储。",
+            "pdfLinkAria": "多图像标注文档（新标签页打开）",
+            "predictions": "查看文档以 <predictionsLink>导入预标注数据</predictionsLink>。",
+            "predictionsLinkAria": "导入预标注数据文档（新标签页打开）"
+          }
+        },
+        "files": {
+          "title": "文件"
+        },
+        "sampleBadge": "示例",
+        "preview": {
+          "title": "期望的输入预览",
+          "error": "加载示例数据时出现问题。",
+          "viewJson": "查看 JSON 输入格式",
+          "setupPrefix": "请先完成",
+          "configureLink": "标注配置",
+          "setupSuffix": "，然后才能预览期望的 JSON 数据格式"
+        },
+        "errors": {
+          "fileTooBig": "导入的文件过大"
+        }
+      }
+    },
+    "empty": {
+      "title": "海蒂没有看到任何项目！",
+      "description": "创建一个项目并开始标注你的数据。",
+      "action": "创建项目"
+    },
+    "card": {
+      "defaultTitle": "新建项目",
+      "menu": {
+        "ariaLabel": "项目操作",
+        "settings": "设置",
+        "label": "标注"
+      },
+      "createAria": "创建新项目"
+    }
+  },
+  "settings": {
+    "pageTitle": "设置",
+    "menu": {
+      "general": "常规",
+      "labeling": "标注界面",
+      "annotation": "标注",
+      "machineLearning": "机器学习",
+      "predictions": "预测",
+      "storage": "存储",
+      "webhooks": "Webhook",
+      "dangerZone": "危险操作"
+    },
+    "common": {
+      "saved": "已保存"
+    },
+    "general": {
+      "title": "常规",
+      "form": {
+        "nameLabel": "项目名称",
+        "descriptionLabel": "描述",
+        "workspaceLabel": "工作区",
+        "workspacePlaceholder": "请选择",
+        "workspaceHelper": "通过将项目组织到<link>工作区</link>来简化项目管理。",
+        "colorLabel": "项目颜色",
+        "saved": "已保存",
+        "saveAria": "保存项目设置"
+      },
+      "sampling": {
+        "title": "任务抽样",
+        "options": {
+          "sequential": {
+            "label": "顺序抽样",
+            "description": "按照固定顺序将任务分配给标注者。"
+          },
+          "uniform": {
+            "label": "均匀抽样",
+            "description": "随机分配任务，确保每个任务被选择的概率相同。"
+          },
+          "uncertainty": {
+            "label": "不确定性抽样",
+            "description": "优先处理模型不确定度最高的任务，仅在<link>工作区</link>中可用。"
+          }
+        }
+      }
+    },
+    "annotation": {
+      "pageTitle": "标注",
+      "title": "标注",
+      "instructions": {
+        "header": "操作说明",
+        "description1": "提供清晰简洁的指导，帮助标注者正确完成任务。",
+        "description2": "可以使用 HTML 格式化内容，或链接到外部文档以获取更多背景。",
+        "showBeforeLabeling": "在开始标注前显示说明"
+      },
+      "prelabeling": {
+        "title": "预标注",
+        "toggleLabel": "向标注者显示模型预测",
+        "toggleDescription": "展示已连接机器学习后端生成的预测结果。"
+      },
+      "form": {
+        "saveAria": "保存标注设置"
+      },
+      "modelVersion": {
+        "label": "模型版本",
+        "placeholder": "选择一个模型版本",
+        "groups": {
+          "models": "在线模型",
+          "predictions": "历史预测"
+        },
+        "versionLabel": "版本 {{version}}（{{count}} 条预测）",
+        "empty": "暂无模型版本。"
+      }
+    },
+    "labeling": {
+      "pageTitle": "标注界面"
+    },
+    "machineLearning": {
+      "pageTitle": "机器学习",
+      "title": "机器学习后端",
+      "modals": {
+        "startTraining": "开始训练",
+        "testRequest": "发送测试请求",
+        "editModel": "编辑模型",
+        "connectModel": "连接模型"
+      },
+      "emptyState": {
+        "title": "连接你的第一个机器学习后端",
+        "description": "关联模型端点，以便发送测试请求、启动训练并提供预测。",
+        "action": "连接模型",
+        "actionAria": "打开机器学习连接表单",
+        "learnMoreAria": "打开机器学习后端相关文档"
+      },
+      "guidance": {
+        "intro": "善用模型辅助标注工作流的小提示：",
+        "step1": "1. <italic>验证配置：</italic> 发送一次测试请求，确认后端响应正常。",
+        "step2": "2. 经常重新同步，让标注者始终看到最新预测。",
+        "step3": "3. <italic>定期再训练：</italic> 在完成一批标注后安排训练，保持模型新鲜。",
+        "prelabeling": "想在界面中看到预测？请在<link>标注设置</link>中启用。"
+      },
+      "form": {
+        "configuration": "默认行为",
+        "toggleLabel": "当标注更新时自动开始训练",
+        "toggleDescription": "当标注配置或标注结果更新时，自动触发训练。",
+        "saveAria": "保存机器学习设置",
+        "nameLabel": "显示名称",
+        "namePlaceholder": "我的模型后端",
+        "urlLabel": "端点 URL",
+        "authMethodLabel": "认证方式",
+        "authMethods": {
+          "none": "无需认证",
+          "basic": "基本认证"
+        },
+        "basicAuthUser": "用户名",
+        "basicAuthPass": "密码",
+        "extraParams": "额外参数（JSON）",
+        "interactiveLabel": "允许交互模式",
+        "interactiveDescription": "允许后端在标注过程中请求额外上下文。",
+        "validateAria": "验证并保存后端",
+        "validateAndSave": "验证并保存",
+        "errorUpdate": "无法更新该模型，请查看下方错误详情。",
+        "errorCreate": "无法连接该模型，请查看下方错误详情。"
+      },
+      "list": {
+        "confirmDelete": {
+          "title": "删除模型",
+          "message": "确定要删除这个机器学习后端吗？"
+        },
+        "menu": {
+          "edit": "编辑",
+          "sendTest": "发送测试请求",
+          "startTraining": "开始训练",
+          "delete": "删除"
+        },
+        "optionsAria": "打开机器学习操作",
+        "created": "创建于 {{time}}",
+        "status": {
+          "disconnected": "未连接",
+          "connected": "已连接",
+          "error": "错误",
+          "training": "训练中",
+          "predicting": "预测中"
+        }
+      },
+      "testRequest": {
+        "send": "发送测试请求",
+        "description": "使用随机任务向模型发送预测请求，验证其响应。",
+        "request": "请求",
+        "response": "响应"
+      },
+      "startTraining": {
+        "description": "使用项目中的最新标注启动一个训练任务。",
+        "note": "训练完成后会在后端列表中显示通知。",
+        "action": "开始训练",
+        "requestSent": "已发送训练请求。",
+        "responseLabel": "后端响应"
+      }
+    },
+    "predictions": {
+      "pageTitle": "预测",
+      "title": "预测",
+      "list": {
+        "title": "预测版本",
+        "description": "在<link>预测文档</link>中了解版本的工作方式。",
+        "confirmDelete": {
+          "title": "删除预测版本",
+          "message": "确定要删除这个预测版本吗？"
+        },
+        "undefinedTooltip": "追踪模型版本之前创建的预测会显示为“undefined”。",
+        "lastCreated": "最近创建",
+        "menu": {
+          "delete": "删除"
+        }
+      },
+      "empty": {
+        "title": "暂无预测",
+        "description": "连接一个模型或导入预测结果即可在此查看。",
+        "learnMoreAria": "打开预测相关文档"
+      }
+    },
+    "storage": {
+      "pageTitle": "存储",
+      "title": "云存储",
+      "description": "连接导入和导出存储，以保持项目数据同步。",
+      "source": {
+        "title": "导入存储",
+        "button": "连接导入存储"
+      },
+      "target": {
+        "title": "导出存储",
+        "button": "连接导出存储"
+      },
+      "modal": {
+        "title": "{{action}}{{target}}存储",
+        "actions": {
+          "edit": "编辑",
+          "connect": "连接"
+        },
+        "targets": {
+          "import": "导入",
+          "export": "导出"
+        }
+      },
+      "delete": {
+        "title": "删除存储",
+        "message": "确定要删除这个存储连接吗？此操作无法撤销。"
+      },
+      "addStorageAria": "连接新的存储",
+      "form": {
+        "typeLabel": "存储类型",
+        "connectionSuccess": "连接成功",
+        "connectionFailed": "连接失败",
+        "testConnectionAria": "测试存储连接",
+        "testConnection": "测试连接",
+        "saveAria": "保存存储配置",
+        "addAria": "新增存储配置",
+        "save": "保存",
+        "add": "新增"
+      },
+      "card": {
+        "untitled": "未命名的 {{type}} 存储",
+        "menu": {
+          "edit": "编辑",
+          "delete": "删除"
+        },
+        "optionsAria": "打开存储操作",
+        "syncAria": "立即同步存储",
+        "sync": "立即同步",
+        "syncHint": "同步正在进行或已排队，请稍后刷新查看状态。"
+      },
+      "summary": {
+        "copy": "复制日志",
+        "copySuccess": "已复制",
+        "status": {
+          "help": [
+            "排队：同步任务已进入队列，尚未开始。",
+            "进行中：同步任务正在运行。",
+            "已完成：同步任务成功完成。",
+            "部分出错：同步完成，但部分记录失败。",
+            "失败：同步任务因错误而停止。"
+          ],
+          "values": {
+            "queued": "排队",
+            "in_progress": "进行中",
+            "completed": "已完成",
+            "completed_with_errors": "部分出错",
+            "failed": "失败"
+          }
+        },
+        "tasks": {
+          "added": "上次同步新增 {{count}} 个任务。",
+          "total": "已有 {{existing}} 个任务同步，共 {{total}} 个任务。",
+          "addedLabel": "{{count}} 个新内容"
+        },
+        "annotations": {
+          "added": "上次同步新增 {{count}} 条标注。",
+          "total": "共 {{total}} 条标注。",
+          "totalLabel": "共 {{total}} 条"
+        },
+        "logs": {
+          "title": "错误日志",
+          "documentation": "需要帮助？请查看<link>存储故障排查指南</link>。",
+          "docsAria": "在新标签页打开存储故障排查指南",
+          "close": "关闭",
+          "view": "查看日志"
+        },
+        "fields": {
+          "type": "类型",
+          "status": "状态",
+          "annotations": "标注",
+          "tasks": "任务",
+          "lastSync": "上次同步",
+          "bucket": "Bucket",
+          "container": "容器",
+          "path": "路径",
+          "host": "主机"
+        },
+        "notSynced": "尚未同步"
+      }
+    },
+    "dangerZone": {
+      "title": "危险操作",
+      "description": "这些操作具有风险且无法撤销，请先备份好数据。",
+      "confirmation": {
+        "inputLabel": "若要继续，请在下方输入“{{word}}”：",
+        "cancel": "取消"
+      },
+      "actions": {
+        "annotations": {
+          "label": "删除 {{count}} 条标注"
+        },
+        "tasks": {
+          "label": "删除 {{count}} 个任务"
+        },
+        "predictions": {
+          "label": "删除 {{count}} 条预测"
+        },
+        "resetCache": {
+          "title": "重置缓存",
+          "message": "你将要为项目 <strong>{{project}}</strong> 重置缓存，该操作无法撤销。",
+          "confirmWord": "cache",
+          "button": "重置缓存",
+          "help": "当旧的标签校验错误阻止你更新标注配置时，可以尝试重置缓存。"
+        },
+        "tabs": {
+          "title": "清除所有标签页",
+          "message": "你将要为项目 <strong>{{project}}</strong> 清除所有标签页，该操作无法撤销。",
+          "confirmWord": "tabs",
+          "button": "清除标签页",
+          "help": "如果数据管理器无法加载，清除所有数据管理器标签页可能会有所帮助。"
+        },
+        "project": {
+          "title": "删除项目",
+          "message": "你将要删除项目 <strong>{{project}}</strong>，该操作无法撤销。",
+          "confirmWord": "delete",
+          "button": "删除项目",
+          "help": "删除项目会移除数据库中的所有任务、标注和项目数据。"
+        }
+      },
+      "toast": {
+        "resetCache": "缓存已重置",
+        "tabs": "已清除所有标签页",
+        "project": "项目已删除",
+        "error": "错误：{{message}}"
+      }
+    }
+  }
+}

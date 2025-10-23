@@ -6,6 +6,7 @@ import { Oneof } from "../../../components/Oneof/Oneof";
 import { ApiContext } from "../../../providers/ApiProvider";
 import { Block, Elem } from "../../../utils/bem";
 import { isDefined } from "../../../utils/helpers";
+import { useTranslation } from "react-i18next";
 
 export const StorageForm = forwardRef(({ onSubmit, target, project, rootClass, storage, storageTypes }, ref) => {
   /**@type {import('react').RefObject<Form>} */
@@ -15,6 +16,7 @@ export const StorageForm = forwardRef(({ onSubmit, target, project, rootClass, s
   const [checking, setChecking] = useState(false);
   const [connectionValid, setConnectionValid] = useState(null);
   const [formFields, setFormFields] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     api
@@ -34,7 +36,7 @@ export const StorageForm = forwardRef(({ onSubmit, target, project, rootClass, s
         skip: true,
         type: "select",
         name: "storage_type",
-        label: "Storage Type",
+        label: t("settings.storage.form.typeLabel"),
         disabled: !!storage,
         options: storageTypes.map(({ name, title }) => ({
           value: name,
@@ -100,10 +102,10 @@ export const StorageForm = forwardRef(({ onSubmit, target, project, rootClass, s
             <Block name="form-indicator">
               <Oneof value={connectionValid}>
                 <Elem tag="span" mod={{ type: "success" }} name="item" case={true}>
-                  Successfully connected!
+                  {t("settings.storage.form.connectionSuccess")}
                 </Elem>
                 <Elem tag="span" mod={{ type: "fail" }} name="item" case={false}>
-                  Connection failed
+                  {t("settings.storage.form.connectionFailed")}
                 </Elem>
               </Oneof>
             </Block>
@@ -117,12 +119,15 @@ export const StorageForm = forwardRef(({ onSubmit, target, project, rootClass, s
             look="outlined"
             waiting={checking}
             onClick={validateStorageConnection}
-            aria-label="Test storage connection"
+            aria-label={t("settings.storage.form.testConnectionAria")}
           >
-            Check Connection
+            {t("settings.storage.form.testConnection")}
           </Button>
-          <Button type="submit" aria-label={storage ? "Save storage settings" : "Add storage"}>
-            {storage ? "Save" : "Add Storage"}
+          <Button
+            type="submit"
+            aria-label={storage ? t("settings.storage.form.saveAria") : t("settings.storage.form.addAria")}
+          >
+            {storage ? t("settings.storage.form.save") : t("settings.storage.form.add")}
           </Button>
         </div>
       </Form.Actions>

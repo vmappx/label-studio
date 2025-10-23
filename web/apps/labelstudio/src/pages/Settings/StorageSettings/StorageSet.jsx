@@ -12,6 +12,7 @@ import { useStorageCard } from "./hooks/useStorageCard";
 import { providers } from "./providers";
 import { StorageCard } from "./StorageCard";
 import { StorageForm } from "./StorageForm";
+import { useTranslation } from "react-i18next";
 
 export const StorageSet = forwardRef(({ title, target, rootClass, buttonLabel }, ref) => {
   const api = useContext(ApiContext);
@@ -20,6 +21,7 @@ export const StorageSet = forwardRef(({ title, target, rootClass, buttonLabel },
   // logic providing only the essential state needed by this component/
 
   const useNewStorageScreen = ff.isActive(ff.FF_NEW_STORAGES);
+  const { t } = useTranslation();
 
   const { storageTypes, storages, storagesLoaded, loading, loaded, fetchStorages } = useStorageCard(
     target,
@@ -28,12 +30,13 @@ export const StorageSet = forwardRef(({ title, target, rootClass, buttonLabel },
 
   const showStorageFormModal = useCallback(
     (storage) => {
-      const action = storage ? "Edit" : "Connect";
-      const actionTarget = target === "export" ? "Target" : "Source";
-      const title = `${action} ${actionTarget} Storage`;
+      const modalTitle = t("settings.storage.modal.title", {
+        action: t(storage ? "settings.storage.modal.actions.edit" : "settings.storage.modal.actions.connect"),
+        target: t(target === "export" ? "settings.storage.modal.targets.export" : "settings.storage.modal.targets.import"),
+      });
 
       const modalRef = modal({
-        title,
+        title: modalTitle,
         closeOnClickOutside: false,
         style: { width: 840 },
         bare: useNewStorageScreen,
@@ -43,7 +46,7 @@ export const StorageSet = forwardRef(({ title, target, rootClass, buttonLabel },
         },
         body: useNewStorageScreen ? (
           <StorageProviderForm
-            title={title}
+            title={modalTitle}
             target={target}
             storage={storage}
             project={project.id}
@@ -74,7 +77,7 @@ export const StorageSet = forwardRef(({ title, target, rootClass, buttonLabel },
         ),
       });
     },
-    [project, fetchStorages, target, rootClass],
+    [project, fetchStorages, target, rootClass, t, useNewStorageScreen, storageTypes],
   );
 
   const onEditStorage = useCallback(
@@ -96,8 +99,8 @@ export const StorageSet = forwardRef(({ title, target, rootClass, buttonLabel },
   const onDeleteStorage = useCallback(
     async (storage) => {
       confirm({
-        title: "Deleting storage",
-        body: "This action cannot be undone. Are you sure?",
+        title: t("settings.storage.delete.title"),
+        body: t("settings.storage.delete.message"),
         buttonLook: "negative",
         onOk: async () => {
           const response = await api.callApi("deleteStorage", {
@@ -112,13 +115,18 @@ export const StorageSet = forwardRef(({ title, target, rootClass, buttonLabel },
         },
       });
     },
-    [fetchStorages],
+    [fetchStorages, t, api, target],
   );
 
   return (
     <Columns.Column title={title}>
       <div className={rootClass.elem("controls")}>
-        <Button onClick={() => showStorageFormModal()} disabled={loading} look="outlined" aria-label="Add storage">
+        <Button
+          onClick={() => showStorageFormModal()}
+          disabled={loading}
+          look="outlined"
+          aria-label={t("settings.storage.addStorageAria")}
+        >
           {buttonLabel}
         </Button>
       </div>

@@ -54,7 +54,23 @@ LOGGING = {
         'rules': {'level': 'WARNING'},
         'django': {
             'handlers': ['console'],
+            "level": "INFO",
             # 'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': os.environ.get('DJANGO_REQUEST_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': os.environ.get('DJANGO_SERVER_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'django.template': {
+            'handlers': ['console'],
+            'level': os.environ.get('DJANGO_TEMPLATE_LOG_LEVEL', 'WARNING'),
+            'propagate': False,
         },
         'django_auth_ldap': {'level': os.environ.get('LOG_LEVEL', 'DEBUG')},
         'rq.worker': {
@@ -104,9 +120,14 @@ if HOSTNAME:
             if FORCE_SCRIPT_NAME:
                 logger.info('=> Django URL prefix is set to: %s', FORCE_SCRIPT_NAME)
 
-FRONTEND_HMR = get_bool_env('FRONTEND_HMR', False)
-FRONTEND_HOSTNAME = get_env('FRONTEND_HOSTNAME', 'http://localhost:8010' if FRONTEND_HMR else HOSTNAME)
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = get_bool_env('DEBUG', True)
+DEBUG_MODAL_EXCEPTIONS = get_bool_env('DEBUG_MODAL_EXCEPTIONS', True)
+print("=> DEBUG:",  DEBUG)
 
+FRONTEND_HMR = get_bool_env('FRONTEND_HMR', True if DEBUG else False)
+FRONTEND_HOSTNAME = get_env('FRONTEND_HOSTNAME', 'http://localhost:8010' if FRONTEND_HMR else HOSTNAME)
+print("=> FRONTEND_HOSTNAME:",FRONTEND_HMR, get_bool_env('FRONTEND_HMR', "none"), FRONTEND_HOSTNAME)
 DOMAIN_FROM_REQUEST = get_bool_env('DOMAIN_FROM_REQUEST', False)
 
 if DOMAIN_FROM_REQUEST:
@@ -116,9 +137,6 @@ if DOMAIN_FROM_REQUEST:
 
 INTERNAL_PORT = '8080'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = get_bool_env('DEBUG', True)
-DEBUG_MODAL_EXCEPTIONS = get_bool_env('DEBUG_MODAL_EXCEPTIONS', True)
 
 # Whether to verify SSL certs when making external requests, eg in the uploader
 # ⚠️ Turning this off means assuming risk. ⚠️
@@ -587,9 +605,9 @@ ALLOW_ORGANIZATION_WEBHOOKS = get_bool_env('ALLOW_ORGANIZATION_WEBHOOKS', False)
 CONVERTER_DOWNLOAD_RESOURCES = get_bool_env('CONVERTER_DOWNLOAD_RESOURCES', True)
 SHOW_TRACEBACK_FOR_EXPORT_CONVERTER = get_bool_env('SHOW_TRACEBACK_FOR_EXPORT_CONVERTER', True)
 EXPERIMENTAL_FEATURES = get_bool_env('EXPERIMENTAL_FEATURES', False)
-USE_ENFORCE_CSRF_CHECKS = get_bool_env('USE_ENFORCE_CSRF_CHECKS', True)  # False is for tests
+USE_ENFORCE_CSRF_CHECKS = get_bool_env('USE_ENFORCE_CSRF_CHECKS', False if DEBUG else True)  # False is for tests
 CLOUD_FILE_STORAGE_ENABLED = False
-
+print("=> USE_ENFORCE_CSRF_CHECKS:", USE_ENFORCE_CSRF_CHECKS)
 IO_STORAGES_IMPORT_LINK_NAMES = [
     'io_storages_s3importstoragelink',
     'io_storages_gcsimportstoragelink',

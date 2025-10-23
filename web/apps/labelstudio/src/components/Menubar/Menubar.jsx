@@ -33,6 +33,8 @@ import { pages } from "@humansignal/app-common";
 import { isFF } from "../../utils/feature-flags";
 import { ff } from "@humansignal/core";
 import { openHotkeyHelp } from "@humansignal/app-common/pages/AccountSettings/sections/Hotkeys/Help";
+import { useTranslation } from "react-i18next";
+import { LanguageToggle } from "../LanguageToggle/LanguageToggle";
 
 export const MenubarContext = createContext();
 
@@ -59,6 +61,7 @@ export const Menubar = ({ enabled, defaultOpened, defaultPinned, children, onSid
   const useMenuRef = useRef();
   const { user, isLoading } = useAuth();
   const location = useFixedLocation();
+  const { t } = useTranslation();
 
   const config = useConfig();
   const [sidebarOpened, setSidebarOpened] = useState(defaultOpened ?? false);
@@ -154,7 +157,7 @@ export const Menubar = ({ enabled, defaultOpened, defaultPinned, children, onSid
               <Button
                 variant="neutral"
                 look="outlined"
-                tooltip="Keyboard Shortcuts"
+                tooltip={t("menu.keyboardShortcuts")}
                 data-testid="hotkeys-button"
                 size="small"
                 onClick={() => {
@@ -175,7 +178,9 @@ export const Menubar = ({ enabled, defaultOpened, defaultPinned, children, onSid
           </div>
 
           {ff.isActive(ff.FF_THEME_TOGGLE) && <ThemeToggle />}
-
+          <div className={menubarClass.elem("language")}>
+            <LanguageToggle />
+          </div>
           <Dropdown.Trigger
             ref={useMenuRef}
             align="right"
@@ -183,16 +188,16 @@ export const Menubar = ({ enabled, defaultOpened, defaultPinned, children, onSid
               <Menu>
                 <Menu.Item
                   icon={<IconPersonInCircle />}
-                  label="Account &amp; Settings"
+                  label={t("menu.accountSettings")}
                   href={pages.AccountSettingsPage.path}
                 />
                 {/* <Menu.Item label="Dark Mode"/> */}
-                <Menu.Item icon={<IconDoor />} label="Log Out" href={absoluteURL("/logout")} data-external />
+                <Menu.Item icon={<IconDoor />} label={t("menu.logOut")} href={absoluteURL("/logout")} data-external />
                 {showNewsletterDot && (
                   <>
                     <Menu.Divider />
                     <Menu.Item className={cn("newsletter-menu-item")} href={pages.AccountSettingsPage.path}>
-                      <span>Please check new notification settings in the Account & Settings page</span>
+                      <span>{t("menu.notificationsPrompt")}</span>
                       <span className={cn("newsletter-menu-badge")} />
                     </Menu.Item>
                   </>
@@ -220,30 +225,30 @@ export const Menubar = ({ enabled, defaultOpened, defaultPinned, children, onSid
               style={{ width: 240 }}
             >
               <Menu>
-                {isFF(FF_HOMEPAGE) && <Menu.Item label="Home" to="/" icon={<IconHome />} data-external exact />}
-                <Menu.Item label="Projects" to="/projects" icon={<IconFolder />} data-external exact />
-                <Menu.Item label="Organization" to="/organization" icon={<IconPeople />} data-external exact />
+                {isFF(FF_HOMEPAGE) && <Menu.Item label={t("menu.home")} to="/" icon={<IconHome />} data-external exact />}
+                <Menu.Item label={t("menu.projects")} to="/projects" icon={<IconFolder />} data-external exact />
+                <Menu.Item label={t("menu.organization")} to="/organization" icon={<IconPeople />} data-external exact />
 
                 <Menu.Spacer />
 
                 <VersionNotifier showNewVersion />
 
                 <Menu.Item
-                  label="API"
+                  label={t("menu.api")}
                   href="https://api.labelstud.io/api-reference/introduction/getting-started"
                   icon={<IconTerminal />}
                   target="_blank"
                 />
-                <Menu.Item label="Docs" href="https://labelstud.io/guide" icon={<IconBook />} target="_blank" />
+                <Menu.Item label={t("menu.docs")} href="https://labelstud.io/guide" icon={<IconBook />} target="_blank" />
                 <Menu.Item
-                  label="GitHub"
+                  label={t("menu.github")}
                   href="https://github.com/HumanSignal/label-studio"
                   icon={<IconGithub />}
                   target="_blank"
                   rel="noreferrer"
                 />
                 <Menu.Item
-                  label="Slack Community"
+                  label={t("menu.slack")}
                   href="https://slack.labelstud.io/?source=product-menu"
                   icon={<IconSlack />}
                   target="_blank"
@@ -260,7 +265,7 @@ export const Menubar = ({ enabled, defaultOpened, defaultPinned, children, onSid
                   onClick={sidebarPin}
                   active={sidebarPinned}
                 >
-                  {sidebarPinned ? "Unpin menu" : "Pin menu"}
+                  {sidebarPinned ? t("menu.unpin") : t("menu.pin")}
                 </Menu.Item>
               </Menu>
             </Dropdown>

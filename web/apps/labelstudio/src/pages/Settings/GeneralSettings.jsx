@@ -1,6 +1,6 @@
-import { EnterpriseBadge, Select, Typography } from "@humansignal/ui";
+import { Button, EnterpriseBadge, Select, Typography } from "@humansignal/ui";
 import { useCallback, useContext } from "react";
-import { Button } from "@humansignal/ui";
+import { Trans, useTranslation } from "react-i18next";
 import { Form, Input, TextArea } from "../../components/Form";
 import { RadioGroup } from "../../components/Form/Elements/RadioGroup/RadioGroup";
 import { ProjectContext } from "../../providers/ProjectProvider";
@@ -8,9 +8,11 @@ import { Block, Elem } from "../../utils/bem";
 import { HeidiTips } from "../../components/HeidiTips/HeidiTips";
 import { FF_LSDV_E_297, isFF } from "../../utils/feature-flags";
 import { createURL } from "../../components/HeidiTips/utils";
+import i18n from "@humansignal/core/lib/i18n";
 
 export const GeneralSettings = () => {
   const { project, fetchProject } = useContext(ProjectContext);
+  const { t } = useTranslation();
 
   const updateProject = useCallback(() => {
     if (project.id) fetchProject(project.id, true);
@@ -19,47 +21,51 @@ export const GeneralSettings = () => {
   const colors = ["#FDFDFC", "#FF4C25", "#FF750F", "#ECB800", "#9AC422", "#34988D", "#617ADA", "#CC6FBE"];
 
   const samplings = [
-    { value: "Sequential", label: "Sequential", description: "Tasks are ordered by Task ID" },
-    { value: "Uniform", label: "Random", description: "Tasks are chosen with uniform random" },
+    { value: "Sequential", key: "sequential" },
+    { value: "Uniform", key: "uniform" },
   ];
 
   return (
     <Block name="general-settings">
       <Elem name={"wrapper"}>
-        <h1>General Settings</h1>
+        <h1>{t("settings.general.title")}</h1>
         <Block name="settings-wrapper">
           <Form action="updateProject" formData={{ ...project }} params={{ pk: project.id }} onSubmit={updateProject}>
             <Form.Row columnCount={1} rowGap="16px">
-              <Input name="title" label="Project Name" />
+              <Input name="title" label={t("settings.general.form.nameLabel")} />
 
-              <TextArea name="description" label="Description" style={{ minHeight: 128 }} />
+              <TextArea name="description" label={t("settings.general.form.descriptionLabel")} style={{ minHeight: 128 }} />
               {isFF(FF_LSDV_E_297) && (
                 <Block name="workspace-placeholder">
                   <Elem name="badge-wrapper">
-                    <Elem name="title">Workspace</Elem>
+                    <Elem name="title">{t("settings.general.form.workspaceLabel")}</Elem>
                     <EnterpriseBadge className="ml-2" />
                   </Elem>
-                  <Select placeholder="Select an option" disabled options={[]} />
+                  <Select placeholder={t("settings.general.form.workspacePlaceholder")} disabled options={[]} />
                   <Typography size="small" className="my-tight">
-                    Simplify project management by organizing projects into workspaces.{" "}
-                    <a
-                      target="_blank"
-                      href={createURL(
-                        "https://docs.humansignal.com/guide/manage_projects#Create-workspaces-to-organize-projects",
-                        {
-                          experiment: "project_settings_tip",
-                          treatment: "simplify_project_management",
-                        },
-                      )}
-                      rel="noreferrer"
-                      className="underline hover:no-underline"
-                    >
-                      Learn more
-                    </a>
+                    <Trans
+                      i18nKey="settings.general.form.workspaceHelper"
+                      components={{
+                        link: (
+                          <a
+                            target="_blank"
+                            href={createURL(
+                              "https://docs.humansignal.com/guide/manage_projects#Create-workspaces-to-organize-projects",
+                              {
+                                experiment: "project_settings_tip",
+                                treatment: "simplify_project_management",
+                              },
+                            )}
+                            rel="noreferrer"
+                            className="underline hover:no-underline"
+                          />
+                        ),
+                      }}
+                    />
                   </Typography>
                 </Block>
               )}
-              <RadioGroup name="color" label="Color" size="large" labelProps={{ size: "large" }}>
+              <RadioGroup name="color" label={t("settings.general.form.colorLabel")} size="large" labelProps={{ size: "large" }}>
                 {colors.map((color) => (
                   <RadioGroup.Button key={color} value={color}>
                     <Block name="color" style={{ "--background": color }} />
@@ -67,13 +73,13 @@ export const GeneralSettings = () => {
                 ))}
               </RadioGroup>
 
-              <RadioGroup label="Task Sampling" labelProps={{ size: "large" }} name="sampling" simple>
-                {samplings.map(({ value, label, description }) => (
+              <RadioGroup label={t("settings.general.sampling.title")} labelProps={{ size: "large" }} name="sampling" simple>
+                {samplings.map(({ value, key }) => (
                   <RadioGroup.Button
                     key={value}
                     value={`${value} sampling`}
-                    label={`${label} sampling`}
-                    description={description}
+                    label={t(`settings.general.sampling.options.${key}.label`)}
+                    description={t(`settings.general.sampling.options.${key}.description`)}
                   />
                 ))}
                 {isFF(FF_LSDV_E_297) && (
@@ -82,23 +88,27 @@ export const GeneralSettings = () => {
                     value=""
                     label={
                       <>
-                        Uncertainty sampling <EnterpriseBadge className="ml-2" />
+                        {t("settings.general.sampling.options.uncertainty.label")} <EnterpriseBadge className="ml-2" />
                       </>
                     }
                     disabled
                     description={
                       <>
-                        Tasks are chosen according to model uncertainty score (active learning mode).{" "}
-                        <a
-                          target="_blank"
-                          href={createURL("https://docs.humansignal.com/guide/active_learning", {
-                            experiment: "project_settings_workspace",
-                            treatment: "workspaces",
-                          })}
-                          rel="noreferrer"
-                        >
-                          Learn more
-                        </a>
+                        <Trans
+                          i18nKey="settings.general.sampling.options.uncertainty.description"
+                          components={{
+                            link: (
+                              <a
+                                target="_blank"
+                                href={createURL("https://docs.humansignal.com/guide/active_learning", {
+                                  experiment: "project_settings_workspace",
+                                  treatment: "workspaces",
+                                })}
+                                rel="noreferrer"
+                              />
+                            ),
+                          }}
+                        />
                       </>
                     }
                   />
@@ -108,10 +118,10 @@ export const GeneralSettings = () => {
 
             <Form.Actions>
               <Form.Indicator>
-                <span case="success">Saved!</span>
+                <span case="success">{t("settings.general.form.saved")}</span>
               </Form.Indicator>
-              <Button type="submit" className="w-[150px]" aria-label="Save general settings">
-                Save
+              <Button type="submit" className="w-[150px]" aria-label={t("settings.general.form.saveAria")}>
+                {t("actions.save")}
               </Button>
             </Form.Actions>
           </Form>
@@ -122,6 +132,7 @@ export const GeneralSettings = () => {
   );
 };
 
-GeneralSettings.menuItem = "General";
+GeneralSettings.menuItem = () => i18n.t("settings.menu.general");
+GeneralSettings.title = () => i18n.t("settings.general.title");
 GeneralSettings.path = "/";
 GeneralSettings.exact = true;

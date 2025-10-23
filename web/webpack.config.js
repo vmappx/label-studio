@@ -264,7 +264,7 @@ module.exports = composePlugins(
       "@humansignal/ui": path.resolve(__dirname, "libs/ui"),
       "@humansignal/core": path.resolve(__dirname, "libs/core"),
     };
-
+    console.info("devserver django hostname:", process.env.MODE, DJANGO_HOSTNAME);
     return merge(config, {
       devtool,
       mode,
@@ -294,12 +294,14 @@ module.exports = composePlugins(
                 changeOrigin: true,
                 pathRewrite: { "^/api": "" },
                 secure: false,
+                 logLevel: "debug",       
               },
               {
                 context: ["/"],
                 target: `${DJANGO_HOSTNAME}`,
                 changeOrigin: true,
                 secure: false,
+                 logLevel: "debug",       
               },
             ],
           },

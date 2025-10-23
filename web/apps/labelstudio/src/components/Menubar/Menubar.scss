@@ -63,6 +63,22 @@
       }
   }
 
+  &__language {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-base);
+
+    .button-ls {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--color-neutral-content);
+
+      &:hover {
+        color: var(--color-neutral-content-stronger);
+      }
+    }
+  }
+
   
   &__trigger {
     display: flex;

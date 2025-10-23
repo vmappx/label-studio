@@ -16,9 +16,14 @@ import { useDraftProject } from "./utils/useDraftProject";
 import { Input, TextArea } from "../../components/Form";
 import { FF_LSDV_E_297, isFF } from "../../utils/feature-flags";
 import { createURL } from "../../components/HeidiTips/utils";
+import { useTranslation } from "react-i18next";
 
-const ProjectName = ({ name, setName, onSaveName, onSubmit, error, description, setDescription, show = true }) =>
-  !show ? null : (
+const ProjectName = ({ name, setName, onSaveName, onSubmit, error, description, setDescription, show = true }) => {
+  const { t } = useTranslation();
+
+  if (!show) return null;
+
+  return (
     <form
       className={cn("project-name")}
       onSubmit={(e) => {
@@ -28,7 +33,7 @@ const ProjectName = ({ name, setName, onSaveName, onSubmit, error, description, 
     >
       <div className="w-full flex flex-col gap-2">
         <label className="w-full" htmlFor="project_name">
-          Project Name
+          {t("createProject.form.nameLabel")}
         </label>
         <Input
           name="name"
@@ -42,12 +47,12 @@ const ProjectName = ({ name, setName, onSaveName, onSubmit, error, description, 
       </div>
       <div className="w-full flex flex-col gap-2">
         <label className="w-full" htmlFor="project_description">
-          Description
+          {t("createProject.form.descriptionLabel")}
         </label>
         <TextArea
           name="description"
           id="project_description"
-          placeholder="Optional description of your project"
+          placeholder={t("createProject.form.descriptionPlaceholder")}
           rows="4"
           style={{ minHeight: 100 }}
           value={description}
@@ -58,12 +63,17 @@ const ProjectName = ({ name, setName, onSaveName, onSubmit, error, description, 
       {isFF(FF_LSDV_E_297) && (
         <div className="w-full flex flex-col gap-2">
           <label>
-            Workspace
+            {t("createProject.form.workspaceLabel")}
             <EnterpriseBadge className="ml-2" />
           </label>
-          <Select placeholder="Select an option" disabled options={[]} triggerClassName="!flex-1" />
+          <Select
+            placeholder={t("createProject.form.workspacePlaceholder") ?? undefined}
+            disabled
+            options={[]}
+            triggerClassName="!flex-1"
+          />
           <Typography size="small" className="mt-tight mb-wider">
-            Simplify project management by organizing projects into workspaces.{" "}
+            {t("createProject.form.workspaceHelper")}{" "}
             <a
               href={createURL(
                 "https://docs.humansignal.com/guide/manage_projects#Create-workspaces-to-organize-projects",
@@ -76,7 +86,7 @@ const ProjectName = ({ name, setName, onSaveName, onSubmit, error, description, 
               rel="noreferrer"
               className="underline hover:no-underline"
             >
-              Learn more
+              {t("actions.learnMore", { defaultValue: t("createProject.form.workspaceLearnMore") })}
             </a>
           </Typography>
           <HeidiTips collection="projectCreation" />
@@ -84,6 +94,7 @@ const ProjectName = ({ name, setName, onSaveName, onSubmit, error, description, 
       )}
     </form>
   );
+};
 
 export const CreateProject = ({ onClose }) => {
   const [step, _setStep] = React.useState("name"); // name | import | config
@@ -92,6 +103,7 @@ export const CreateProject = ({ onClose }) => {
   const { project, setProject: updateProject } = useDraftProject();
   const history = useHistory();
   const api = useAPI();
+  const { t } = useTranslation();
 
   const [name, setName] = React.useState("");
   const [error, setError] = React.useState();
@@ -117,9 +129,9 @@ export const CreateProject = ({ onClose }) => {
   const rootClass = cn("create-project");
   const tabClass = rootClass.elem("tab");
   const steps = {
-    name: <span className={tabClass.mod({ disabled: !!error })}>Project Name</span>,
-    import: <span className={tabClass.mod({ disabled: uploadDisabled })}>Data Import</span>,
-    config: "Labeling Setup",
+    name: <span className={tabClass.mod({ disabled: !!error })}>{t("createProject.tabs.projectName")}</span>,
+    import: <span className={tabClass.mod({ disabled: uploadDisabled })}>{t("createProject.tabs.dataImport")}</span>,
+    config: t("createProject.tabs.labelingSetup"),
   };
 
   // name intentionally skipped from deps:
@@ -200,7 +212,7 @@ export const CreateProject = ({ onClose }) => {
     <Modal onHide={onDelete} closeOnClickOutside={false} allowToInterceptEscape fullscreen visible bare>
       <div className={rootClass}>
         <Modal.Header>
-          <h1>Create Project</h1>
+          <h1>{t("createProject.modal.title")}</h1>
           <ToggleItems items={steps} active={step} onSelect={setStep} />
 
           <Space>
@@ -210,9 +222,9 @@ export const CreateProject = ({ onClose }) => {
               size="small"
               onClick={onDelete}
               waiting={waiting}
-              aria-label="Cancel project creation"
+              aria-label={t("createProject.modal.cancelAria")}
             >
-              Cancel
+              {t("actions.cancel", { defaultValue: t("createProject.modal.cancel") })}
             </Button>
             <Button
               look="primary"
@@ -221,7 +233,7 @@ export const CreateProject = ({ onClose }) => {
               waiting={waiting || uploading}
               disabled={!project || uploadDisabled || error}
             >
-              Save
+              {t("actions.save", { defaultValue: t("createProject.modal.save") })}
             </Button>
           </Space>
         </Modal.Header>

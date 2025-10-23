@@ -15,7 +15,7 @@ import { DRAFT_GUARD_KEY, DraftGuard, draftGuardCallback } from "../components/D
 import { AsyncPage } from "./AsyncPage/AsyncPage";
 import ErrorBoundary from "./ErrorBoundary";
 import { FF_UNSAVED_CHANGES, isFF } from "../utils/feature-flags";
-import { TourProvider } from "@humansignal/core";
+import { TourProvider, I18nProvider } from "@humansignal/core";
 import { ToastProvider, ToastViewport } from "@humansignal/ui";
 import { JotaiProvider, JotaiStore } from "../utils/jotai-store";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -58,9 +58,10 @@ initSentry(browserHistory);
 
 const App = ({ content }) => {
   return (
-    <ErrorBoundary>
-      <Router history={browserHistory}>
-        <MultiProvider
+    <I18nProvider>
+      <ErrorBoundary>
+        <Router history={browserHistory}>
+          <MultiProvider
           providers={[
             <QueryClientProvider client={queryClient} key="query" />,
             <JotaiProvider key="jotai" store={JotaiStore} />,
@@ -79,9 +80,10 @@ const App = ({ content }) => {
             <RootPage content={content} />
             <ToastViewport />
           </AsyncPage>
-        </MultiProvider>
-      </Router>
-    </ErrorBoundary>
+          </MultiProvider>
+        </Router>
+      </ErrorBoundary>
+    </I18nProvider>
   );
 };
 
