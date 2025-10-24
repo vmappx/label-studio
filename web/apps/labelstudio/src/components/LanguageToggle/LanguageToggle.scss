@@ -1,84 +1,55 @@
 .language-toggle {
   display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-inline-size: auto;
   position: relative;
 
-  &__button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  &__button-labels {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--color-neutral-content, currentColor);
-  }
-
-  &__button-short {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 600;
-  }
-
-  &__button-divider {
-    display: inline-flex;
+  &__legend {
+    position: absolute;
     width: 1px;
-    height: 14px;
-    background-color: var(--color-neutral-border, currentColor);
-    opacity: 0.6;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    white-space: nowrap;
   }
 
-  &__button-full {
-    font-size: 12px;
-    text-transform: none;
-    letter-spacing: normal;
-    color: var(--color-neutral-content-subtle, currentColor);
-  }
-
-  &__button-icon {
-    width: 14px;
-    height: 14px;
-    opacity: 0.6;
-    transition: opacity 120ms ease-out;
-  }
-
-  &__menu-item {
-    display: flex;
-    justify-content: space-between;
+  &__buttons {
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 4px;
   }
 
-  &__option {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  &__option-label {
-    font-size: 14px;
-    text-transform: none;
-  }
-
-  &__option-short {
-    font-size: 12px;
+  &__switch-button {
+    min-width: 48px;
+    justify-content: center;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    opacity: 0.6;
-  }
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding-inline: 10px;
 
-  &__option-icon {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    color: var(--color-primary-content, currentColor);
-  }
+    transition: color 120ms ease-out, background-color 120ms ease-out;
 
-  &:hover &__button-icon {
-    opacity: 0.9;
+    &[data-active="true"] {
+      background-color: var(--color-neutral-surface-strong, rgba(0, 0, 0, 0.08));
+      color: var(--color-primary-content, currentColor);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    &:not([data-active="true"]) {
+      color: var(--color-neutral-content, currentColor);
+
+      &:hover {
+        color: var(--color-primary-content, currentColor);
+      }
+    }
   }
 }

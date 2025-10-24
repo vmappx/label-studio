@@ -1,11 +1,8 @@
 import { useCallback, useMemo } from "react";
 import { Button } from "@humansignal/ui";
-import { IconCheck, IconChevronDown } from "@humansignal/icons";
 import { useTranslation } from "react-i18next";
 import { cn } from "../../utils/bem";
 import { changeLanguage, DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from "@humansignal/core/lib/i18n";
-import { Dropdown } from "../Dropdown/Dropdown";
-import { Menu } from "../Menu/Menu";
 import "./LanguageToggle.scss";
 
 const normalise = (lng) => lng?.split?.("-")?.[0] ?? DEFAULT_LANGUAGE;
@@ -43,45 +40,42 @@ export const LanguageToggle = () => {
   );
   window.changeLanguage = handleSelect;
 
-  const menu = (
-    <Menu>
-      {SUPPORTED_LANGUAGES.map((language) => {
-        const isActive = language.code === current.code;
-        console.info("language.code", language.code, language.label);
-        return (
-          <Menu.Item
-            key={language.code}
-            onClick={() => handleSelect(language.code)}
-            active={isActive}
-            className={languageToggleClass.elem("menu-item")}
-          >
-            <span className={languageToggleClass.elem("option")}>
-              <span className={languageToggleClass.elem("option-short")}>{language.label}</span>
-            </span>
-            {isActive && <IconCheck className={languageToggleClass.elem("option-icon")} />}
-          </Menu.Item>
-        );
-      })}
-    </Menu>
-  );
+  const visibleLanguages = useMemo(() => {
+    const preferredOrder = ["en", "zh"];
+    const prioritized = preferredOrder
+      .map((code) => SUPPORTED_LANGUAGES.find((language) => language.code === code))
+      .filter(Boolean);
+
+    // Fallback: show all supported languages if preferred ones are missing
+    return prioritized.length > 0 ? prioritized : SUPPORTED_LANGUAGES;
+  }, []);
 
   return (
-    <Dropdown.Trigger align="right" content={menu}>
-      <Button
-        className={languageToggleClass.elem("button")}
-        variant="neutral"
-        look="ghost"
-        size="small"
-        tooltip={t("language.toggle")}
-        aria-label={t("language.toggle")}
-        aria-haspopup="menu"
-        type="button"
-        trailing={<IconChevronDown className={languageToggleClass.elem("button-icon")} />}
-      >
-        <span className={languageToggleClass.elem("button-labels")}>
-          <span className={languageToggleClass.elem("button-full")}>{current.label}</span>
-        </span>
-      </Button>
-    </Dropdown.Trigger>
+    <fieldset className={languageToggleClass.toString()}>
+      <legend className={languageToggleClass.elem("legend")}>{t("language.toggle")}</legend>
+
+      <div className={languageToggleClass.elem("buttons")}>
+        {visibleLanguages.map((language) => {
+          const isActive = language.code === current.code;
+          const label = getLanguageLabel(language);
+
+          return (
+            <Button
+              key={language.code}
+              className={languageToggleClass.elem("switch-button")}
+              variant="neutral"
+              look="ghost"
+              size="small"
+              type="button"
+              data-active={isActive}
+              aria-pressed={isActive}
+              onClick={() => handleSelect(language.code)}
+            >
+              {label}
+            </Button>
+          );
+        })}
+      </div>
+    </fieldset>
   );
 };
