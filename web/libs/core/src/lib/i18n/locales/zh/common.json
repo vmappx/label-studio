@@ -258,6 +258,106 @@
       "createAria": "创建新项目"
     }
   },
+  "organization": {
+    "menu": {
+      "title": "组织",
+      "people": "成员",
+      "models": "模型",
+      "webhooks": "Webhook"
+    },
+    "people": {
+      "pageTitle": "成员",
+      "columns": {
+        "email": "邮箱",
+        "name": "姓名",
+        "lastActivity": "最近活动"
+      },
+      "tooltip": {
+        "userId": "用户 ID：{{id}}"
+      },
+      "actions": {
+        "apiTokensModalTitle": "API 令牌设置",
+        "apiTokens": "API 令牌设置",
+        "apiTokensAria": "打开 API 令牌设置",
+        "addMembers": "添加成员",
+        "addMembersAria": "邀请新成员"
+      },
+      "toast": {
+        "apiTokenSaved": "API 令牌设置已保存"
+      },
+      "details": {
+        "closeAria": "关闭用户详情",
+        "createdProjects": "创建的项目",
+        "contributedTo": "参与的项目",
+        "lastActivity": "最后活动时间：{{date}}"
+      }
+    },
+    "webhooks": {
+      "list": {
+        "title": "Webhooks",
+        "add": "添加 Webhook",
+        "addAria": "添加 Webhook",
+        "created": "创建于 {{date}}",
+        "edit": "编辑",
+        "editAria": "编辑 Webhook",
+        "delete": "删除",
+        "deleteAria": "删除 Webhook"
+      },
+      "detail": {
+        "title": "Webhooks",
+        "new": "新建 Webhook",
+        "edit": "编辑 Webhook",
+        "payloadUrl": "回调地址",
+        "urlPlaceholder": "URL",
+        "isActive": "启用",
+        "headers": "请求头",
+        "addHeaderTooltip": "添加请求头",
+        "headerPlaceholder": "键",
+        "valuePlaceholder": "值",
+        "removeHeaderTooltip": "移除请求头",
+        "payloadSection": "负载",
+        "sendPayload": "发送负载",
+        "sendForAll": "对全部动作发送",
+        "sendPayloadFor": "发送负载的事件",
+        "cancel": "取消",
+        "cancelAria": "取消编辑 Webhook",
+        "add": "添加 Webhook",
+        "addAria": "添加 Webhook",
+        "delete": "删除 Webhook",
+        "save": "保存更改",
+        "saveAria": "保存 Webhook"
+      }
+    },
+    "models": {
+      "pageTitle": "模型",
+      "actions": {
+        "createModel": "创建模型"
+      },
+      "empty": {
+        "title": "创建模型",
+        "caption": "构建高质量模型，利用大语言模型自动标注数据",
+        "cta": "创建模型",
+        "ctaAria": "创建新模型"
+      }
+    }
+  },
+  "datamanager": {
+    "crash": {
+      "info": "项目已被删除或尚未创建",
+      "back": "返回项目列表",
+      "backAria": "返回项目列表"
+    },
+    "links": {
+      "settings": "设置"
+    },
+    "crumb": {
+      "labeling": "标注"
+    },
+    "instructions": {
+      "modalTitle": "标注说明",
+      "button": "标注说明"
+    }
+  },
   "settings": {
     "pageTitle": "设置",
     "menu": {
@@ -440,7 +540,268 @@
     "storage": {
       "pageTitle": "存储",
       "title": "云存储",
-      "description": "连接导入和导出存储，以保持项目数据同步。",
+      "description": "连接导入与导出存储，让项目数据保持同步。",
+      "selection": {
+        "title": "选择云存储提供商",
+        "description": "请选择存放数据的云存储服务",
+        "providerLabel": "存储提供商"
+      },
+      "enterpriseFeature": {
+        "title": "企业功能"
+      },
+      "common": {
+        "optional": "可选",
+        "prefix": {
+          "label": "存储前缀",
+          "placeholder": "path/to/files"
+        },
+        "presign": {
+          "label": "使用预签名链接（开）/ 通过平台代理（关）",
+          "description": "启用预签名链接后，所有数据将绕过平台，浏览器会直接从存储读取数据"
+        },
+        "presign_ttl": {
+          "label": "预签名链接过期时间（分钟)"
+        }
+      },
+      "providers": {
+        "s3": {
+          "title": "Amazon S3",
+          "description": "配置 AWS S3 连接并填充 Label Studio 所需的全部设置",
+          "fields": {
+            "bucket": {
+              "label": "桶名称",
+              "placeholder": "my-storage-bucket",
+              "errors": {
+                "required": "桶名称为必填项"
+              }
+            },
+            "region_name": {
+              "label": "区域名称",
+              "placeholder": "us-east-1（默认）"
+            },
+            "s3_endpoint": {
+              "label": "S3 端点",
+              "placeholder": "https://s3.amazonaws.com（默认）"
+            },
+            "aws_access_key_id": {
+              "label": "Access Key ID",
+              "placeholder": "AKIAIOSFODNN7EXAMPLE",
+              "errors": {
+                "required": "Access Key ID 为必填项"
+              }
+            },
+            "aws_secret_access_key": {
+              "label": "Secret Access Key",
+              "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+              "errors": {
+                "required": "Secret Access Key 为必填项"
+              }
+            },
+            "aws_session_token": {
+              "label": "会话令牌",
+              "placeholder": "Session token（可选）"
+            }
+          }
+        },
+        "azure": {
+          "title": "Azure Blob Storage",
+          "description": "配置 Azure Blob Storage 连接并填充 Label Studio 所需的全部设置",
+          "fields": {
+            "container": {
+              "label": "容器名称",
+              "placeholder": "my-azure-container",
+              "errors": {
+                "required": "容器名称为必填项"
+              }
+            },
+            "account_name": {
+              "label": "账户名称",
+              "placeholder": "mystorageaccount"
+            },
+            "account_key": {
+              "label": "账户密钥",
+              "placeholder": "存储账户密钥"
+            }
+          }
+        },
+        "gcs": {
+          "title": "Google Cloud Storage",
+          "description": "配置 Google Cloud Storage 连接并填充 Label Studio 所需的全部设置",
+          "fields": {
+            "bucket": {
+              "errors": {
+                "required": "桶名称为必填项"
+              }
+            },
+            "google_application_credentials": {
+              "label": "Google 应用凭据",
+              "description": "在此粘贴 credentials.json 的内容，或留空以使用 ADC。"
+            },
+            "google_project_id": {
+              "label": "Google 项目 ID",
+              "description": "留空以从 Google 应用凭据继承。"
+            }
+          }
+        },
+        "redis": {
+          "title": "Redis 存储",
+          "description": "配置 Redis 存储连接并填充 Label Studio 所需的全部设置",
+          "fields": {
+            "db": {
+              "label": "数据库编号（db）",
+              "placeholder": "1"
+            },
+            "password": {
+              "label": "密码",
+              "placeholder": "Redis 密码"
+            },
+            "host": {
+              "label": "主机",
+              "placeholder": "redis://example.com",
+              "errors": {
+                "required": "主机为必填项"
+              }
+            },
+            "port": {
+              "label": "端口",
+              "placeholder": "6379"
+            }
+          }
+        },
+        "localfiles": {
+          "title": "本地文件",
+          "description": "配置本地文件存储连接并填充 Label Studio 所需的全部设置",
+          "fields": {
+            "path": {
+              "label": "本地绝对路径",
+              "placeholder": "/data/my-folder/",
+              "errors": {
+                "required": "路径为必填项"
+              }
+            },
+            "prefix": {
+              "label": "路径"
+            }
+          }
+        },
+        "databricks": {
+          "title": "Databricks Files\n(UC Volumes)",
+          "description": "配置 Databricks Unity Catalog Volumes 连接（仅代理模式）",
+          "enterprise": {
+            "description": "Databricks Files (UC Volumes) 仅在 Label Studio 企业版中可用。"
+          }
+        },
+        "azureSpi": {
+          "title": "Azure Blob Storage\nwith Service Principal",
+          "description": "使用 Service Principal 认证配置 Azure Blob Storage（仅代理模式）",
+          "enterprise": {
+            "description": "带 Service Principal 的 Azure Blob Storage 仅在 Label Studio 企业版中可用。"
+          }
+        },
+        "gcsWif": {
+          "title": "Google Cloud Storage\n(WIF Auth)",
+          "description": "使用 Workload Identity Federation 认证配置 Google Cloud Storage（仅代理模式）",
+          "enterprise": {
+            "description": "带 Workload Identity Federation 的 Google Cloud Storage 仅在 Label Studio 企业版中可用。"
+          }
+        },
+        "s3s": {
+          "title": "Amazon S3\nwith IAM Role",
+          "description": "使用 IAM 角色访问配置 AWS S3（仅代理模式）",
+          "enterprise": {
+            "description": "带 IAM 角色的 Amazon S3 仅在 Label Studio 企业版中可用。"
+          }
+        }
+      },
+      "preview": {
+        "title": "配置导入设置并预览数据",
+        "description": "设置文件筛选条件并预览将要同步的内容",
+        "sections": {
+          "configuration": "导入配置",
+          "files": "文件预览"
+        },
+        "common": {
+          "optional": "可选"
+        },
+        "fields": {
+          "path": {
+            "label": "文件路径",
+            "description": "指定存储中保存文件的文件夹路径",
+            "placeholder": "path/to/files/ 或留空表示根目录"
+          },
+          "prefix": {
+            "label": "桶前缀",
+            "description": "指定桶中保存文件的文件夹路径",
+            "placeholder": "path/to/files/ 或留空表示根目录"
+          }
+        },
+        "importMethod": {
+          "label": "导入方式",
+          "description": "选择如何读取存储中的数据",
+          "placeholder": "选择导入方式",
+          "options": {
+            "files": "文件——为每个存储对象自动创建一个任务（如 JPG、MP3、TXT）",
+            "tasks": "任务——将每个 JSON、JSONL 或 Parquet 文件视为一个或多个任务定义"
+          }
+        },
+        "fileFilter": {
+          "label": "文件名过滤器",
+          "description": "使用正则表达式筛选需要导入的文件",
+          "placeholderFiles": ".*\\.(jpg|png)$ —— 仅导入 JPG、PNG 文件",
+          "placeholderTasks": ".*\\.(json|jsonl|parquet)$ —— 导入任务定义文件",
+          "common": "常用过滤："
+        },
+        "filters": {
+          "images": "图像",
+          "videos": "视频",
+          "audio": "音频",
+          "tabular": "表格",
+          "json": "JSON",
+          "jsonl": "JSONL",
+          "parquet": "Parquet",
+          "allTasks": "全部任务文件"
+        },
+        "recursive": {
+          "label": "扫描所有子文件夹",
+          "description": "包含所有嵌套文件夹中的文件"
+        },
+        "empty": {
+          "title": "暂无预览",
+          "description": "请先配置导入设置并点击“加载预览”，查看将要导入的示例文件。",
+          "noFilesTitle": "未找到文件",
+          "noFilesDescription": "当前条件下未找到匹配文件，尝试调整过滤设置后重新加载预览。"
+        },
+        "tooltip": {
+          "noKey": "...",
+          "limitReached": "... 已达到预览上限 ..."
+        }
+      },
+      "review": {
+        "title": "准备连接",
+        "description": "请检查连接信息，确认后开始导入",
+        "provider": "提供商",
+        "location": "存储位置",
+        "prefix": "前缀",
+        "notSpecified": "未指定",
+        "files": {
+          "title": "待导入文件",
+          "count": "共 {{count}} 个文件",
+          "count_plural": "共 {{count}} 个文件",
+          "moreThan": "超过 {{count}} 个文件"
+        },
+        "size": {
+          "title": "总大小",
+          "none": "0 字节",
+          "moreThan": "超过 {{size}}"
+        },
+        "process": {
+          "title": "导入流程",
+          "description": "文件将在后台导入，你可以继续工作。"
+        }
+      },
+      "stepper": {
+        "completed": "已完成"
+      },
       "source": {
         "title": "导入存储",
         "button": "连接导入存储"
@@ -474,7 +835,23 @@
         "saveAria": "保存存储配置",
         "addAria": "新增存储配置",
         "save": "保存",
-        "add": "新增"
+        "add": "新增",
+        "errors": {
+          "noProvider": "尚未选择存储提供商",
+          "unknownProvider": "未知的提供商：{{provider}}"
+        },
+        "fields": {
+          "title": {
+            "label": "存储名称",
+            "placeholder": "输入一个便于理解的名称（例如“法律文档”、“训练数据”）",
+            "description": "用于在项目中识别此连接"
+          },
+          "canDelete": {
+            "label": "允许从存储中删除对象",
+            "description": "关闭后不会从存储中删除标注结果",
+            "aria": "允许从存储中删除对象"
+          }
+        }
       },
       "card": {
         "untitled": "未命名的 {{type}} 存储",

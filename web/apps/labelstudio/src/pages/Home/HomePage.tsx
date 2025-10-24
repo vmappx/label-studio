@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useUpdatePageTitle } from "@humansignal/core";
+import i18n from "@humansignal/core/lib/i18n";
 import { useTranslation } from "react-i18next";
 import { HeidiTips } from "../../components/HeidiTips/HeidiTips";
 import { useAPI } from "../../providers/ApiProvider";
@@ -194,7 +195,7 @@ export const HomePage: Page = () => {
   );
 };
 
-HomePage.title = "Home";
+HomePage.title = () => i18n.t("home.pageTitle");
 HomePage.path = "/";
 HomePage.exact = true;
 

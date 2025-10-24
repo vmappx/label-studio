@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { NavLink } from "react-router-dom";
 import { IconCross } from "@humansignal/icons";
 import { Userpic, Button } from "@humansignal/ui";
+import { useTranslation } from "react-i18next";
 import { Block, Elem } from "../../../utils/bem";
 import "./SelectedUser.scss";
 
@@ -24,6 +25,7 @@ const UserProjectsLinks = ({ projects }) => {
 };
 
 export const SelectedUser = ({ user, onClose }) => {
+  const { t } = useTranslation();
   const fullName = [user.first_name, user.last_name]
     .filter((n) => !!n)
     .join(" ")
@@ -35,7 +37,7 @@ export const SelectedUser = ({ user, onClose }) => {
         look="string"
         onClick={onClose}
         className="absolute top-[20px] right-[24px]"
-        aria-label="Close user details"
+        aria-label={t("organization.people.details.closeAria")}
       >
         <IconCross />
       </Button>
@@ -58,7 +60,7 @@ export const SelectedUser = ({ user, onClose }) => {
 
       {!!user.created_projects.length && (
         <Elem name="section">
-          <Elem name="section-title">Created Projects</Elem>
+          <Elem name="section-title">{t("organization.people.details.createdProjects")}</Elem>
 
           <UserProjectsLinks projects={user.created_projects} />
         </Elem>
@@ -66,14 +68,16 @@ export const SelectedUser = ({ user, onClose }) => {
 
       {!!user.contributed_to_projects.length && (
         <Elem name="section">
-          <Elem name="section-title">Contributed to</Elem>
+          <Elem name="section-title">{t("organization.people.details.contributedTo")}</Elem>
 
           <UserProjectsLinks projects={user.contributed_to_projects} />
         </Elem>
       )}
 
       <Elem tag="p" name="last-active">
-        Last activity on: {format(new Date(user.last_activity), "dd MMM yyyy, KK:mm a")}
+        {t("organization.people.details.lastActivity", {
+          date: format(new Date(user.last_activity), "dd MMM yyyy, KK:mm a"),
+        })}
       </Elem>
     </Block>
   );

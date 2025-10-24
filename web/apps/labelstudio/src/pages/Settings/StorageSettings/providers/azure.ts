@@ -1,53 +1,56 @@
 import type { ProviderConfig } from "@humansignal/app-common/blocks/StorageProviderForm/types/provider";
 import { IconCloudProviderAzure } from "@humansignal/icons";
 import { z } from "zod";
+import i18n from "@humansignal/core/lib/i18n";
+
+const t = (key: string) => i18n.t(`settings.storage.providers.azure.${key}`);
+const tc = (key: string) => i18n.t(`settings.storage.common.${key}`);
 
 export const azureProvider: ProviderConfig = {
   name: "azure",
-  title: "Azure Blob Storage",
-  description: "Configure your Azure Blob Storage connection with all required Label Studio settings",
+  title: t("title"),
+  description: t("description"),
   icon: IconCloudProviderAzure,
   fields: [
     {
       name: "container",
       type: "text",
-      label: "Container Name",
+      label: t("fields.container.label"),
       required: true,
-      placeholder: "my-azure-container",
-      schema: z.string().min(1, "Container name is required"),
+      placeholder: t("fields.container.placeholder"),
+      schema: z.string().min(1, t("fields.container.errors.required")),
     },
     {
       name: "prefix",
       type: "text",
-      label: "Bucket prefix",
-      placeholder: "path/to/files",
+      label: tc("prefix.label"),
+      placeholder: tc("prefix.placeholder"),
       schema: z.string().optional().default(""),
       target: "export",
     },
     {
       name: "account_name",
       type: "password",
-      label: "Account Name",
+      label: t("fields.account_name.label"),
       autoComplete: "off",
       accessKey: true,
-      placeholder: "mystorageaccount",
+      placeholder: t("fields.account_name.placeholder"),
       schema: z.string().optional().default(""),
     },
     {
       name: "account_key",
       type: "password",
-      label: "Account Key",
+      label: t("fields.account_key.label"),
       autoComplete: "new-password",
       accessKey: true,
-      placeholder: "Your storage account key",
+      placeholder: t("fields.account_key.placeholder"),
       schema: z.string().optional().default(""),
     },
     {
       name: "presign",
       type: "toggle",
-      label: "Use pre-signed URLs (On) / Proxy through the platform (Off)",
-      description:
-        "When pre-signed URLs are enabled, all data bypasses the platform and user browsers directly read data from storage",
+      label: tc("presign.label"),
+      description: tc("presign.description"),
       schema: z.boolean().default(true),
       target: "import",
       resetConnection: false,
@@ -55,7 +58,7 @@ export const azureProvider: ProviderConfig = {
     {
       name: "presign_ttl",
       type: "counter",
-      label: "Expire pre-signed URLs (minutes)",
+      label: tc("presign_ttl.label"),
       min: 1,
       max: 10080,
       step: 1,

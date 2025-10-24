@@ -2,6 +2,7 @@ import { getProviderConfig } from "../providers";
 import { ProviderForm } from "../components/provider-form";
 import Input from "apps/labelstudio/src/components/Form/Elements/Input/Input";
 import { Toggle } from "@humansignal/ui";
+import { useTranslation } from "react-i18next";
 
 interface ProviderDetailsStepProps {
   formData: any;
@@ -23,9 +24,16 @@ export const ProviderDetailsStep = ({
   target,
 }: ProviderDetailsStepProps) => {
   const providerConfig = getProviderConfig(provider);
+  const { t } = useTranslation();
 
   if (!provider || !providerConfig) {
-    return <div className="text-red-500">{!provider ? "No provider selected" : `Unknown provider: ${provider}`}</div>;
+    return (
+      <div className="text-red-500">
+        {!provider
+          ? t("settings.storage.form.errors.noProvider")
+          : t("settings.storage.form.errors.unknownProvider", { provider })}
+      </div>
+    );
   }
 
   return (
@@ -41,7 +49,7 @@ export const ProviderDetailsStep = ({
           name="title"
           value={formData.title ?? ""}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleProviderFieldChange("title", e.target.value)}
-          placeholder="Enter a descriptive name (e.g., 'Legal Documents', 'Training Data')"
+          placeholder={t("settings.storage.form.fields.title.placeholder")}
           validate=""
           skip={false}
           labelProps={{}}
@@ -49,8 +57,8 @@ export const ProviderDetailsStep = ({
           tooltip=""
           tooltipIcon={null}
           required={true}
-          label="Storage Title"
-          description="This name will help you identify this connection in your project"
+          label={t("settings.storage.form.fields.title.label")}
+          description={t("settings.storage.form.fields.title.description")}
           footer={errors.title ? <span className="text-negative-content">{errors.title}</span> : ""}
           className={errors.title ? "border-negative-content" : ""}
         />
@@ -73,9 +81,9 @@ export const ProviderDetailsStep = ({
             <Toggle
               checked={formData.can_delete_objects ?? false}
               onChange={(e) => handleProviderFieldChange("can_delete_objects", e.target.checked)}
-              aria-label="Can delete objects from storage"
-              label="Can delete objects from storage"
-              description="If unchecked, annotations will not be deleted from storage"
+              aria-label={t("settings.storage.form.fields.canDelete.aria")}
+              label={t("settings.storage.form.fields.canDelete.label")}
+              description={t("settings.storage.form.fields.canDelete.description")}
             />
           </div>
         </div>

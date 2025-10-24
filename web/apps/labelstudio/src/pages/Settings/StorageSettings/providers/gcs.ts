@@ -1,33 +1,37 @@
 import { z } from "zod";
 import type { ProviderConfig } from "@humansignal/app-common/blocks/StorageProviderForm/types/provider";
 import { IconCloudProviderGCS } from "@humansignal/icons";
+import i18n from "@humansignal/core/lib/i18n";
+
+const t = (key: string) => i18n.t(`settings.storage.providers.gcs.${key}`);
+const tc = (key: string) => i18n.t(`settings.storage.common.${key}`);
 
 export const gcsProvider: ProviderConfig = {
   name: "gcs",
-  title: "Google Cloud Storage",
-  description: "Configure your Google Cloud Storage connection with all required Label Studio settings",
+  title: t("title"),
+  description: t("description"),
   icon: IconCloudProviderGCS,
   fields: [
     {
       name: "bucket",
       type: "text",
-      label: "Bucket Name",
+      label: t("fields.bucket.label"),
       required: true,
-      schema: z.string().min(1, "Bucket name is required"),
+      schema: z.string().min(1, t("fields.bucket.errors.required")),
     },
     {
       name: "prefix",
       type: "text",
-      label: "Bucket prefix",
-      placeholder: "path/to/files",
+      label: tc("prefix.label"),
+      placeholder: tc("prefix.placeholder"),
       schema: z.string().optional().default(""),
       target: "export",
     },
     {
       name: "google_application_credentials",
       type: "password",
-      label: "Google Application Credentials",
-      description: "Paste the contents of credentials.json in this field OR leave it blank to use ADC.",
+      label: t("fields.google_application_credentials.label"),
+      description: t("fields.google_application_credentials.description"),
       autoComplete: "new-password",
       accessKey: true,
       schema: z.string().optional().default(""), // JSON validation could be added if needed
@@ -35,16 +39,15 @@ export const gcsProvider: ProviderConfig = {
     {
       name: "google_project_id",
       type: "text",
-      label: "Google Project ID",
-      description: "Leave blank to inherit from Google Application Credentials.",
+      label: t("fields.google_project_id.label"),
+      description: t("fields.google_project_id.description"),
       schema: z.string().optional().default(""),
     },
     {
       name: "presign",
       type: "toggle",
-      label: "Use pre-signed URLs (On) / Proxy through the platform (Off)",
-      description:
-        "When pre-signed URLs are enabled, all data bypasses the platform and user browsers directly read data from storage",
+      label: tc("presign.label"),
+      description: tc("presign.description"),
       schema: z.boolean().default(true),
       target: "import",
       resetConnection: false,
@@ -52,7 +55,7 @@ export const gcsProvider: ProviderConfig = {
     {
       name: "presign_ttl",
       type: "counter",
-      label: "Expire pre-signed URLs (minutes)",
+      label: tc("presign_ttl.label"),
       min: 1,
       max: 10080,
       step: 1,

@@ -258,6 +258,106 @@
       "createAria": "Create new project"
     }
   },
+  "organization": {
+    "menu": {
+      "title": "Organization",
+      "people": "People",
+      "models": "Models",
+      "webhooks": "Webhooks"
+    },
+    "people": {
+      "pageTitle": "People",
+      "columns": {
+        "email": "Email",
+        "name": "Name",
+        "lastActivity": "Last Activity"
+      },
+      "tooltip": {
+        "userId": "User ID: {{id}}"
+      },
+      "actions": {
+        "apiTokensModalTitle": "API Token Settings",
+        "apiTokens": "API Tokens Settings",
+        "apiTokensAria": "Show API token settings",
+        "addMembers": "Add Members",
+        "addMembersAria": "Invite new member"
+      },
+      "toast": {
+        "apiTokenSaved": "API Token settings saved"
+      },
+      "details": {
+        "closeAria": "Close user details",
+        "createdProjects": "Created Projects",
+        "contributedTo": "Contributed to",
+        "lastActivity": "Last activity on: {{date}}"
+      }
+    },
+    "webhooks": {
+      "list": {
+        "title": "Webhooks",
+        "add": "Add Webhook",
+        "addAria": "Add webhook",
+        "created": "Created {{date}}",
+        "edit": "Edit",
+        "editAria": "Edit webhook",
+        "delete": "Delete",
+        "deleteAria": "Delete webhook"
+      },
+      "detail": {
+        "title": "Webhooks",
+        "new": "New Webhook",
+        "edit": "Edit Webhook",
+        "payloadUrl": "Payload URL",
+        "urlPlaceholder": "URL",
+        "isActive": "Is Active",
+        "headers": "Headers",
+        "addHeaderTooltip": "Add Header",
+        "headerPlaceholder": "header",
+        "valuePlaceholder": "value",
+        "removeHeaderTooltip": "Remove Header",
+        "payloadSection": "Payload",
+        "sendPayload": "Send payload",
+        "sendForAll": "Send for all actions",
+        "sendPayloadFor": "Send Payload for",
+        "cancel": "Cancel",
+        "cancelAria": "Cancel webhook edit",
+        "add": "Add Webhook",
+        "addAria": "Add webhook",
+        "delete": "Delete Webhook",
+        "save": "Save Changes",
+        "saveAria": "Save webhook"
+      }
+    },
+    "models": {
+      "pageTitle": "Models",
+      "actions": {
+        "createModel": "Create Model"
+      },
+      "empty": {
+        "title": "Create a model",
+        "caption": "Build a high quality model to auto-label your data using LLMs",
+        "cta": "Create a Model",
+        "ctaAria": "Create new model"
+      }
+    }
+  },
+  "datamanager": {
+    "crash": {
+      "info": "Project was deleted or not yet created",
+      "back": "Back to projects",
+      "backAria": "Back to projects"
+    },
+    "links": {
+      "settings": "Settings"
+    },
+    "crumb": {
+      "labeling": "Labeling"
+    },
+    "instructions": {
+      "modalTitle": "Labeling Instructions",
+      "button": "Instructions"
+    }
+  },
   "settings": {
     "pageTitle": "Settings",
     "menu": {
@@ -441,6 +541,267 @@
       "pageTitle": "Storage",
       "title": "Cloud storage",
       "description": "Connect import and export storage to keep your project data in sync.",
+      "selection": {
+        "title": "Choose your cloud storage provider",
+        "description": "Select the cloud storage service where your data is stored",
+        "providerLabel": "Storage Provider"
+      },
+      "enterpriseFeature": {
+        "title": "Enterprise Feature"
+      },
+      "common": {
+        "optional": "optional",
+        "prefix": {
+          "label": "Bucket prefix",
+          "placeholder": "path/to/files"
+        },
+        "presign": {
+          "label": "Use pre-signed URLs (On) / Proxy through the platform (Off)",
+          "description": "When pre-signed URLs are enabled, all data bypasses the platform and user browsers directly read data from storage"
+        },
+        "presign_ttl": {
+          "label": "Expire pre-signed URLs (minutes)"
+        }
+      },
+      "providers": {
+        "s3": {
+          "title": "Amazon S3",
+          "description": "Configure your AWS S3 connection with all required Label Studio settings",
+          "fields": {
+            "bucket": {
+              "label": "Bucket Name",
+              "placeholder": "my-storage-bucket",
+              "errors": {
+                "required": "Bucket name is required"
+              }
+            },
+            "region_name": {
+              "label": "Region Name",
+              "placeholder": "us-east-1 (default)"
+            },
+            "s3_endpoint": {
+              "label": "S3 Endpoint",
+              "placeholder": "https://s3.amazonaws.com (default)"
+            },
+            "aws_access_key_id": {
+              "label": "Access Key ID",
+              "placeholder": "AKIAIOSFODNN7EXAMPLE",
+              "errors": {
+                "required": "Access Key ID is required"
+              }
+            },
+            "aws_secret_access_key": {
+              "label": "Secret Access Key",
+              "placeholder": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+              "errors": {
+                "required": "Secret Access Key is required"
+              }
+            },
+            "aws_session_token": {
+              "label": "Session Token",
+              "placeholder": "Session token (optional)"
+            }
+          }
+        },
+        "azure": {
+          "title": "Azure Blob Storage",
+          "description": "Configure your Azure Blob Storage connection with all required Label Studio settings",
+          "fields": {
+            "container": {
+              "label": "Container Name",
+              "placeholder": "my-azure-container",
+              "errors": {
+                "required": "Container name is required"
+              }
+            },
+            "account_name": {
+              "label": "Account Name",
+              "placeholder": "mystorageaccount"
+            },
+            "account_key": {
+              "label": "Account Key",
+              "placeholder": "Your storage account key"
+            }
+          }
+        },
+        "gcs": {
+          "title": "Google Cloud Storage",
+          "description": "Configure your Google Cloud Storage connection with all required Label Studio settings",
+          "fields": {
+            "bucket": {
+              "errors": {
+                "required": "Bucket name is required"
+              }
+            },
+            "google_application_credentials": {
+              "label": "Google Application Credentials",
+              "description": "Paste the contents of credentials.json in this field OR leave it blank to use ADC."
+            },
+            "google_project_id": {
+              "label": "Google Project ID",
+              "description": "Leave blank to inherit from Google Application Credentials."
+            }
+          }
+        },
+        "redis": {
+          "title": "Redis Storage",
+          "description": "Configure your Redis storage connection with all required Label Studio settings",
+          "fields": {
+            "db": {
+              "label": "Database Number (db)",
+              "placeholder": "1"
+            },
+            "password": {
+              "label": "Password",
+              "placeholder": "Your redis password"
+            },
+            "host": {
+              "label": "Host",
+              "placeholder": "redis://example.com",
+              "errors": {
+                "required": "Host is required"
+              }
+            },
+            "port": {
+              "label": "Port",
+              "placeholder": "6379"
+            }
+          }
+        },
+        "localfiles": {
+          "title": "Local Files",
+          "description": "Configure your local file storage connection with all required Label Studio settings",
+          "fields": {
+            "path": {
+              "label": "Absolute local path",
+              "placeholder": "/data/my-folder/",
+              "errors": {
+                "required": "Path is required"
+              }
+            },
+            "prefix": {
+              "label": "Path"
+            }
+          }
+        },
+        "databricks": {
+          "title": "Databricks Files\n(UC Volumes)",
+          "description": "Configure your Databricks Unity Catalog Volumes connection with all required settings (proxy only)",
+          "enterprise": {
+            "description": "Databricks Files (UC Volumes) is available in Label Studio Enterprise."
+          }
+        },
+        "azureSpi": {
+          "title": "Azure Blob Storage\nwith Service Principal",
+          "description": "Configure your Azure Blob Storage connection using Service Principal authentication for enhanced security (proxy only)",
+          "enterprise": {
+            "description": "Azure Blob Storage with Service Principal is available in Label Studio Enterprise."
+          }
+        },
+        "gcsWif": {
+          "title": "Google Cloud Storage\n(WIF Auth)",
+          "description": "Configure your Google Cloud Storage connection with Workload Identity Federation authentication (proxy only)",
+          "enterprise": {
+            "description": "Google Cloud Storage with Workload Identity Federation is available in Label Studio Enterprise."
+          }
+        },
+        "s3s": {
+          "title": "Amazon S3\nwith IAM Role",
+          "description": "Configure your AWS S3 connection using IAM role access for enhanced security (proxy only)",
+          "enterprise": {
+            "description": "Amazon S3 with IAM Role is available in Label Studio Enterprise."
+          }
+        }
+      },
+      "preview": {
+        "title": "Configure Import Settings & Preview Data",
+        "description": "Set up filters for your files and preview what will be synchronized",
+        "sections": {
+          "configuration": "Import Configuration",
+          "files": "Files Preview"
+        },
+        "common": {
+          "optional": "optional"
+        },
+        "fields": {
+          "path": {
+            "label": "Path to Files",
+            "description": "Specify the folder path within your storage where your files are located",
+            "placeholder": "path/to/files/ or leave empty for root"
+          },
+          "prefix": {
+            "label": "Bucket Prefix",
+            "description": "Specify the folder path within your bucket where your files are located",
+            "placeholder": "path/to/files/ or leave empty for root"
+          }
+        },
+        "importMethod": {
+          "label": "Import Method",
+          "description": "Choose how to interpret your data from storage",
+          "placeholder": "Select import method",
+          "options": {
+            "files": "Files - Automatically creates a task for each storage object (e.g. JPG, MP3, TXT)",
+            "tasks": "Tasks - Treat each JSON, JSONL, or Parquet as one or more task definitions per file"
+          }
+        },
+        "fileFilter": {
+          "label": "File Name Filter",
+          "description": "Use regex patterns to filter which files are imported",
+          "placeholderFiles": ".*\\.(jpg|png)$ - imports only JPG, PNG files",
+          "placeholderTasks": ".*\\.(json|jsonl|parquet)$ - imports task definitions",
+          "common": "Common filters:"
+        },
+        "filters": {
+          "images": "Images",
+          "videos": "Videos",
+          "audio": "Audio",
+          "tabular": "Tabular",
+          "json": "JSON",
+          "jsonl": "JSONL",
+          "parquet": "Parquet",
+          "allTasks": "All Tasks Files"
+        },
+        "recursive": {
+          "label": "Scan all sub-folders",
+          "description": "Include files from all nested folders"
+        },
+        "empty": {
+          "title": "No Preview Available",
+          "description": "Configure your import settings and click \"Load Preview\" to see a sample of files that will be imported.",
+          "noFilesTitle": "No Files Found",
+          "noFilesDescription": "No files matching your current criteria were found. Try adjusting your filter settings and reload the preview."
+        },
+        "tooltip": {
+          "noKey": "...",
+          "limitReached": "... preview limit reached ..."
+        }
+      },
+      "review": {
+        "title": "Ready to Connect",
+        "description": "Review your connection details and confirm to start importing",
+        "provider": "Provider",
+        "location": "Storage Location",
+        "prefix": "Prefix",
+        "notSpecified": "Not specified",
+        "files": {
+          "title": "Files to import",
+          "count": "{{count}} file",
+          "count_plural": "{{count}} files",
+          "moreThan": "More than {{count}} files"
+        },
+        "size": {
+          "title": "Total size",
+          "none": "0 Bytes",
+          "moreThan": "More than {{size}}"
+        },
+        "process": {
+          "title": "Import Process",
+          "description": "Files will be imported in the background. You can continue working while the import is in progress."
+        }
+      },
+      "stepper": {
+        "completed": "Completed"
+      },
       "source": {
         "title": "Import storage",
         "button": "Connect import storage"
@@ -474,7 +835,23 @@
         "saveAria": "Save storage configuration",
         "addAria": "Add storage configuration",
         "save": "Save",
-        "add": "Add"
+        "add": "Add",
+        "errors": {
+          "noProvider": "No provider selected",
+          "unknownProvider": "Unknown provider: {{provider}}"
+        },
+        "fields": {
+          "title": {
+            "label": "Storage Title",
+            "placeholder": "Enter a descriptive name (e.g., 'Legal Documents', 'Training Data')",
+            "description": "This name will help you identify this connection in your project"
+          },
+          "canDelete": {
+            "label": "Can delete objects from storage",
+            "description": "If unchecked, annotations will not be deleted from storage",
+            "aria": "Can delete objects from storage"
+          }
+        }
       },
       "card": {
         "untitled": "Untitled {{type}} storage",

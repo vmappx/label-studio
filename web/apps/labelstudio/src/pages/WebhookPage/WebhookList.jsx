@@ -6,9 +6,11 @@ import "./WebhookPage.scss";
 import { format } from "date-fns";
 import { useAPI } from "../../providers/ApiProvider";
 import { WebhookDeleteModal } from "./WebhookDeleteModal";
+import { useTranslation } from "react-i18next";
 
 const WebhookList = ({ onSelectActive, onAddWebhook, webhooks, fetchWebhooks }) => {
   const api = useAPI();
+  const { t } = useTranslation();
 
   if (webhooks === null) return <></>;
 
@@ -28,10 +30,10 @@ const WebhookList = ({ onSelectActive, onAddWebhook, webhooks, fetchWebhooks }) 
 
   return (
     <Block name="webhook">
-      <h1>Webhooks</h1>
+      <h1>{t("organization.webhooks.list.title")}</h1>
       <Elem name="controls">
-        <Button onClick={onAddWebhook} aria-label="Add webhook">
-          Add Webhook
+        <Button onClick={onAddWebhook} aria-label={t("organization.webhooks.list.addAria")}>
+          {t("organization.webhooks.list.add")}
         </Button>
       </Elem>
       <Elem>
@@ -48,16 +50,20 @@ const WebhookList = ({ onSelectActive, onAddWebhook, webhooks, fetchWebhooks }) 
                       {obj.url}
                     </Elem>
                   </Elem>
-                  <Elem name="item-date">Created {format(new Date(obj.created_at), "dd MMM yyyy, HH:mm")}</Elem>
+                  <Elem name="item-date">
+                    {t("organization.webhooks.list.created", {
+                      date: format(new Date(obj.created_at), "dd MMM yyyy, HH:mm"),
+                    })}
+                  </Elem>
                 </Elem>
                 <Elem name="item-control">
                   <Button
                     look="outlined"
                     onClick={() => onSelectActive(obj.id)}
                     icon={<IconPencil />}
-                    aria-label="Edit webhook"
+                    aria-label={t("organization.webhooks.list.editAria")}
                   >
-                    Edit
+                    {t("organization.webhooks.list.edit")}
                   </Button>
                   <Button
                     onClick={() =>
@@ -71,8 +77,9 @@ const WebhookList = ({ onSelectActive, onAddWebhook, webhooks, fetchWebhooks }) 
                     variant="negative"
                     look="outlined"
                     icon={<IconCross />}
+                    aria-label={t("organization.webhooks.list.deleteAria")}
                   >
-                    Delete
+                    {t("organization.webhooks.list.delete")}
                   </Button>
                 </Elem>
               </Elem>

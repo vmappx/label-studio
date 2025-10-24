@@ -13,6 +13,7 @@ import { SettingsPage } from "../Settings";
 import { EmptyProjectsList, ProjectsList } from "./ProjectsList";
 import { useAbortController, useUpdatePageTitle } from "@humansignal/core";
 import { useTranslation } from "react-i18next";
+import i18n from "@humansignal/core/lib/i18n";
 import "./Projects.scss";
 
 const getCurrentPage = () => {
@@ -142,7 +143,7 @@ export const ProjectsPage = () => {
   );
 };
 
-ProjectsPage.title = "Projects";
+ProjectsPage.title = () => i18n.t("projects.pageTitle");
 ProjectsPage.path = "/projects";
 ProjectsPage.exact = true;
 ProjectsPage.routes = ({ store }) => [

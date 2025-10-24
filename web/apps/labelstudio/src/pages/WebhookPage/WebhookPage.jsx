@@ -9,6 +9,7 @@ import { useProject } from "../../providers/ProjectProvider";
 import { Block, Elem } from "../../utils/bem";
 import { IconInfo } from "@humansignal/icons";
 import { useHistory } from "react-router";
+import i18n from "@humansignal/core/lib/i18n";
 
 const Webhook = () => {
   const [activeWebhook, setActiveWebhook] = useState(null);
@@ -134,7 +135,7 @@ const Webhook = () => {
 };
 
 export const WebhookPage = {
-  title: "Webhooks",
+  title: () => i18n.t("organization.menu.webhooks"),
   path: "/webhooks",
   component: Webhook,
 };

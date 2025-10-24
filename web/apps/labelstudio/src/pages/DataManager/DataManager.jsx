@@ -14,6 +14,7 @@ import { isDefined } from "../../utils/helpers";
 import { ImportModal } from "../CreateProject/Import/ImportModal";
 import { ExportPage } from "../ExportPage/ExportPage";
 import { APIConfig } from "./api-config";
+import { useTranslation } from "react-i18next";
 
 import "./DataManager.scss";
 
@@ -70,6 +71,7 @@ export const DataManagerPage = ({ ...props }) => {
   const [loading, setLoading] = useState(!window.DataManager || !window.LabelStudio);
   const dataManagerRef = useRef();
   const projectId = project?.id;
+  const { t } = useTranslation();
 
   const init = useCallback(async () => {
     if (!window.LabelStudio) return;
@@ -95,6 +97,7 @@ export const DataManagerPage = ({ ...props }) => {
     Object.assign(window, { dataManager });
 
     dataManager.on("crash", (details) => {
+      setCrashed(true);
       const error = details?.error;
       const isMissingTaskError = error?.startsWith("Task ID:");
       const isMissingProjectError = error?.startsWith("Project ID:");
@@ -151,7 +154,7 @@ export const DataManagerPage = ({ ...props }) => {
     });
 
     if (interactiveBacked) {
-      dataManager.on("lsf:regionFinishedDrawing", (reg, group) => {
+      dataManager.on("lsf:regionFinishedDrawing", (_reg, group) => {
         const { lsf, task, currentAnnotation: annotation } = dataManager.lsf;
         const ids = group.map((r) => r.cleanId);
         const result = annotation.serializeAnnotation().filter((res) => ids.includes(res.id));
@@ -210,10 +213,10 @@ export const DataManagerPage = ({ ...props }) => {
 
   return crashed ? (
     <Block name="crash">
-      <Elem name="info">Project was deleted or not yet created</Elem>
+      <Elem name="info">{t("datamanager.crash.info")}</Elem>
 
-      <Button to="/projects" aria-label="Back to projects">
-        Back to projects
+      <Button to="/projects" aria-label={t("datamanager.crash.backAria")}>
+        {t("datamanager.crash.back")}
       </Button>
     </Block>
   ) : (
@@ -237,10 +240,14 @@ DataManagerPage.pages = {
 DataManagerPage.context = ({ dmRef }) => {
   const { project } = useProject();
   const [mode, setMode] = useState(dmRef?.mode ?? "explorer");
+  const { t } = useTranslation();
 
-  const links = {
-    "/settings": "Settings",
-  };
+  const links = useMemo(
+    () => ({
+      "/settings": t("datamanager.links.settings"),
+    }),
+    [t],
+  );
 
   const updateCrumbs = (currentMode) => {
     const isExplorer = currentMode === "explorer";
@@ -250,7 +257,7 @@ DataManagerPage.context = ({ dmRef }) => {
     } else {
       addCrumb({
         key: "dm-crumb",
-        title: "Labeling",
+        title: t("datamanager.crumb.labeling"),
       });
     }
   };
@@ -261,7 +268,7 @@ DataManagerPage.context = ({ dmRef }) => {
 
     if (isLabelStream && show_instruction && expert_instruction) {
       modal({
-        title: "Labeling Instructions",
+        title: t("datamanager.instructions.modalTitle"),
         body: <div dangerouslySetInnerHTML={{ __html: expert_instruction }} />,
         style: { width: 680 },
       });
@@ -292,7 +299,7 @@ DataManagerPage.context = ({ dmRef }) => {
           look="outlined"
           onClick={() => {
             modal({
-              title: "Instructions",
+              title: t("datamanager.instructions.modalTitle"),
               body: () => (
                 <div
                   dangerouslySetInnerHTML={{
@@ -303,7 +310,7 @@ DataManagerPage.context = ({ dmRef }) => {
             });
           }}
         >
-          Instructions
+          {t("datamanager.instructions.button")}
         </Button>
       )}
 

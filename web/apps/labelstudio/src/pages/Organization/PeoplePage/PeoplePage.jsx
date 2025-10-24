@@ -1,6 +1,7 @@
 import { Button } from "@humansignal/ui";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useUpdatePageTitle } from "@humansignal/core";
+import i18n from "@humansignal/core/lib/i18n";
 import { HeidiTips } from "../../../components/HeidiTips/HeidiTips";
 import { modal } from "../../../components/Modal/Modal";
 import { Space } from "../../../components/Space/Space";
@@ -12,6 +13,7 @@ import "./PeoplePage.scss";
 import { TokenSettingsModal } from "@humansignal/app-common/blocks/TokenSettingsModal";
 import { IconPlus } from "@humansignal/icons";
 import { useToast } from "@humansignal/ui";
+import { useTranslation } from "react-i18next";
 import { InviteLink } from "./InviteLink";
 import { SelectedUser } from "./SelectedUser";
 
@@ -20,8 +22,9 @@ export const PeoplePage = () => {
   const toast = useToast();
   const [selectedUser, setSelectedUser] = useState(null);
   const [invitationOpen, setInvitationOpen] = useState(false);
+  const { t } = useTranslation();
 
-  useUpdatePageTitle("People");
+  useUpdatePageTitle(t("organization.people.pageTitle"));
 
   const selectUser = useCallback(
     (user) => {
@@ -34,18 +37,18 @@ export const PeoplePage = () => {
 
   const apiTokensSettingsModalProps = useMemo(
     () => ({
-      title: "API Token Settings",
+      title: t("organization.people.actions.apiTokensModalTitle"),
       style: { width: 480 },
       body: () => (
         <TokenSettingsModal
           onSaved={() => {
-            toast.show({ message: "API Token settings saved" });
+            toast.show({ message: t("organization.people.toast.apiTokenSaved") });
             apiSettingsModal.current?.close();
           }}
         />
       ),
     }),
-    [],
+    [t, toast],
   );
 
   const showApiTokenSettingsModal = useCallback(() => {
@@ -65,16 +68,20 @@ export const PeoplePage = () => {
 
           <Space>
             {isFF(FF_AUTH_TOKENS) && (
-              <Button look="outlined" onClick={showApiTokenSettingsModal} aria-label="Show API token settings">
-                API Tokens Settings
+              <Button
+                look="outlined"
+                onClick={showApiTokenSettingsModal}
+                aria-label={t("organization.people.actions.apiTokensAria")}
+              >
+                {t("organization.people.actions.apiTokens")}
               </Button>
             )}
             <Button
               leading={<IconPlus className="!h-4" />}
               onClick={() => setInvitationOpen(true)}
-              aria-label="Invite new member"
+              aria-label={t("organization.people.actions.addMembersAria")}
             >
-              Add Members
+              {t("organization.people.actions.addMembers")}
             </Button>
           </Space>
         </Space>
@@ -103,5 +110,5 @@ export const PeoplePage = () => {
   );
 };
 
-PeoplePage.title = "People";
+PeoplePage.title = () => i18n.t("organization.menu.people");
 PeoplePage.path = "/";

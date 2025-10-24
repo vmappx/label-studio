@@ -1,48 +1,52 @@
 import { z } from "zod";
 import type { ProviderConfig } from "@humansignal/app-common/blocks/StorageProviderForm/types/provider";
 import { IconCloudProviderRedis } from "@humansignal/icons";
+import i18n from "@humansignal/core/lib/i18n";
+
+const t = (key: string) => i18n.t(`settings.storage.providers.redis.${key}`);
+const tc = (key: string) => i18n.t(`settings.storage.common.${key}`);
 
 export const redisProvider: ProviderConfig = {
   name: "redis",
-  title: "Redis Storage",
-  description: "Configure your Redis storage connection with all required Label Studio settings",
+  title: t("title"),
+  description: t("description"),
   icon: IconCloudProviderRedis,
   fields: [
     {
       name: "db",
       type: "text",
-      label: "Database Number (db)",
-      placeholder: "1",
+      label: t("fields.db.label"),
+      placeholder: t("fields.db.placeholder"),
       schema: z.string().default("1"),
     },
     {
       name: "password",
       type: "password",
-      label: "Password",
+      label: t("fields.password.label"),
       autoComplete: "new-password",
-      placeholder: "Your redis password",
+      placeholder: t("fields.password.placeholder"),
       schema: z.string().optional().default(""),
     },
     {
       name: "host",
       type: "text",
-      label: "Host",
+      label: t("fields.host.label"),
       required: true,
-      placeholder: "redis://example.com",
-      schema: z.string().min(1, "Host is required"),
+      placeholder: t("fields.host.placeholder"),
+      schema: z.string().min(1, t("fields.host.errors.required")),
     },
     {
       name: "port",
       type: "text",
-      label: "Port",
-      placeholder: "6379",
+      label: t("fields.port.label"),
+      placeholder: t("fields.port.placeholder"),
       schema: z.string().default("6379"),
     },
     {
       name: "prefix",
       type: "text",
-      label: "Bucket prefix",
-      placeholder: "path/to/files",
+      label: tc("prefix.label"),
+      placeholder: tc("prefix.placeholder"),
       schema: z.string().optional().default(""),
       target: "export",
     },

@@ -1,6 +1,7 @@
 import { formatDistance } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
 import { Userpic } from "@humansignal/ui";
+import { useTranslation } from "react-i18next";
 import { Pagination, Spinner } from "../../../components";
 import { usePage, usePageSize } from "../../../components/Pagination/Pagination";
 import { useAPI } from "../../../providers/ApiProvider";
@@ -10,6 +11,7 @@ import "./PeopleList.scss";
 import { CopyableTooltip } from "../../../components/CopyableTooltip/CopyableTooltip";
 
 export const PeopleList = ({ onSelect, selectedUser, defaultSelected }) => {
+  const { t } = useTranslation();
   const api = useAPI();
   const [usersList, setUsersList] = useState();
   const [currentPage] = usePage("page", 1);
@@ -66,13 +68,13 @@ export const PeopleList = ({ onSelect, selectedUser, defaultSelected }) => {
               <Elem name="header">
                 <Elem name="column" mix="avatar" />
                 <Elem name="column" mix="email">
-                  Email
+                  {t("organization.people.columns.email")}
                 </Elem>
                 <Elem name="column" mix="name">
-                  Name
+                  {t("organization.people.columns.name")}
                 </Elem>
                 <Elem name="column" mix="last-activity">
-                  Last Activity
+                  {t("organization.people.columns.lastActivity")}
                 </Elem>
               </Elem>
               <Elem name="body">
@@ -82,7 +84,10 @@ export const PeopleList = ({ onSelect, selectedUser, defaultSelected }) => {
                   return (
                     <Elem key={`user-${user.id}`} name="user" mod={{ active }} onClick={() => selectUser(user)}>
                       <Elem name="field" mix="avatar">
-                        <CopyableTooltip title={`User ID: ${user.id}`} textForCopy={user.id}>
+                        <CopyableTooltip
+                          title={t("organization.people.tooltip.userId", { id: user.id })}
+                          textForCopy={user.id}
+                        >
                           <Userpic user={user} style={{ width: 28, height: 28 }} />
                         </CopyableTooltip>
                       </Elem>
