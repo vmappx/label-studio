@@ -41,13 +41,13 @@ export const LanguageToggle = () => {
     },
     [current.code],
   );
-  window.changeLanguage = handleSelect
+  window.changeLanguage = handleSelect;
 
   const menu = (
-    <Menu >
+    <Menu>
       {SUPPORTED_LANGUAGES.map((language) => {
         const isActive = language.code === current.code;
-        {console.info("language.code", language.code, language.label)}
+        console.info("language.code", language.code, language.label);
         return (
           <Menu.Item
             key={language.code}
@@ -66,24 +66,22 @@ export const LanguageToggle = () => {
   );
 
   return (
-   
-      <Dropdown.Trigger align="right" content={menu}>
-        <Button
-          className={languageToggleClass.elem("button")}
-          variant="neutral"
-          look="ghost"
-          size="small"
-          tooltip={t("language.toggle")}
-          aria-label={t("language.toggle")}
-          aria-haspopup="menu"
-          type="button"
-          trailing={<IconChevronDown className={languageToggleClass.elem("button-icon")} />}
-        >
-          <span className={languageToggleClass.elem("button-labels")}>
-            <span className={languageToggleClass.elem("button-full")}>{current.label}</span>
-          </span>
-        </Button>
-      </Dropdown.Trigger>
-  
+    <Dropdown.Trigger align="right" content={menu}>
+      <Button
+        className={languageToggleClass.elem("button")}
+        variant="neutral"
+        look="ghost"
+        size="small"
+        tooltip={t("language.toggle")}
+        aria-label={t("language.toggle")}
+        aria-haspopup="menu"
+        type="button"
+        trailing={<IconChevronDown className={languageToggleClass.elem("button-icon")} />}
+      >
+        <span className={languageToggleClass.elem("button-labels")}>
+          <span className={languageToggleClass.elem("button-full")}>{current.label}</span>
+        </span>
+      </Button>
+    </Dropdown.Trigger>
   );
 };

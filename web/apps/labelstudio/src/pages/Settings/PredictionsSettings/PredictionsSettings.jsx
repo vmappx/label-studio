@@ -70,7 +70,7 @@ export const PredictionsSettings = () => {
               size="medium"
               variant="primary"
               icon={<IconPredictions />}
-              title={t("settings.predictions.empty.title")} 
+              title={t("settings.predictions.empty.title")}
               description={t("settings.predictions.empty.description")}
               footer={
                 !window.APP_SETTINGS?.whitelabel_is_active && (

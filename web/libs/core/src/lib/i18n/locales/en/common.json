@@ -10,6 +10,7 @@
     "viewAll": "View All",
     "cancel": "Cancel",
     "save": "Save",
+    "saveAndLeave": "Save and leave",
     "learnMore": "Learn more"
   },
   "menu": {
@@ -149,6 +150,96 @@
         },
         "errors": {
           "fileTooBig": "Imported file is too big"
+        }
+      },
+      "config": {
+        "title": "Labeling configuration",
+        "browseTemplates": "Browse templates",
+        "browseTemplatesAria": "Browse labeling templates",
+        "tabs": {
+          "code": "Code",
+          "visual": "Visual"
+        },
+        "empty": {
+          "title": "Start building your labeling interface",
+          "description": "Need a reference? Explore all available <link>Label Studio tags</link>."
+        },
+        "labels": {
+          "deleteAria": "Remove label",
+          "addChoicesTitle": "Add choices",
+          "addLabelsTitle": "Add labels",
+          "addHint": "Paste values separated by commas or new lines.",
+          "addAria": "Add labels",
+          "addButton": "Add",
+          "choicesHeading": "{{count}} choices",
+          "labelsHeading": "{{count}} labels"
+        },
+        "settings": {
+          "title": "Settings",
+          "options": {
+            "stroke_width": {
+              "title": "Width of region borders"
+            },
+            "zoom": {
+              "title": "Allow image zoom (ctrl+wheel)"
+            },
+            "zoom_control": {
+              "title": "Show controls to zoom in and out"
+            },
+            "rotate_control": {
+              "title": "Show controls to rotate image"
+            },
+            "granularity": {
+              "title": "Select text by words"
+            },
+            "place_labels_left": {
+              "title": "Display labels:",
+              "choices": {
+                "bottom": "Bottom",
+                "left": "Left",
+                "right": "Right",
+                "top": "Top"
+              }
+            },
+            "filter": {
+              "title": "Add filter for long list of labels"
+            }
+          }
+        },
+        "columns": {
+          "title": "Data columns",
+          "notEnoughData": "We couldn't match enough data columns to preview every object.",
+          "noData": "Import data to map it to labeling objects.",
+          "options": {
+            "imported": "Use imported field",
+            "manual": "Enter manually"
+          },
+          "labelSingle": "Select the {{source}} field for {{tag}} \"{{name}}\".",
+          "labelMultiple": "Select the {{source}} field for {{tag}} \"{{name}}\" labels.",
+          "source": {
+            "field": "data column",
+            "upload": "uploaded data"
+          }
+        },
+        "code": {
+          "parserError": "The configuration contains syntax errors.",
+          "tagsInfo": "Need help writing the config?<br/>See all available <link>Label Studio tags</link>."
+        },
+        "saveIndicator": "Saved",
+        "saveConfigurationAria": "Save labeling configuration",
+        "actions": {
+          "saving": "Saving…"
+        },
+        "preview": {
+          "title": "UI preview",
+          "errorFallback": "We couldn't load the preview.",
+          "loading": "Loading preview…"
+        },
+        "unsavedChanges": {
+          "title": "You have unsaved changes.",
+          "body": "Would you like to save them before leaving?",
+          "discard": "Discard and leave",
+          "saveAria": "Save changes"
         }
       }
     },

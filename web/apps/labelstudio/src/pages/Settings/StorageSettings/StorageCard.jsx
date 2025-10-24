@@ -77,11 +77,7 @@ export const StorageCard = ({ rootClass, target, storage, onEditStorage, onDelet
           >
             {t("settings.storage.card.sync")}
           </Button>
-          {notSyncedYet && (
-            <div className={rootClass.elem("sync-count")}>
-              {t("settings.storage.card.syncHint")}
-            </div>
-          )}
+          {notSyncedYet && <div className={rootClass.elem("sync-count")}>{t("settings.storage.card.syncHint")}</div>}
         </div>
       </div>
     </Card>

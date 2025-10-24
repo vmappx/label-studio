@@ -166,10 +166,7 @@ export const MachineLearningSettings = () => {
               {t("settings.machineLearning.guidance.step2")}
             </Typography>
             <Typography size="small" className="text-neutral-content-subtler mt-tighter">
-              <Trans
-                i18nKey="settings.machineLearning.guidance.step3"
-                components={{ italic: <i /> }}
-              />
+              <Trans i18nKey="settings.machineLearning.guidance.step3" components={{ italic: <i /> }} />
             </Typography>
             <Typography size="small" className="text-neutral-content-subtler mt-base">
               <Trans

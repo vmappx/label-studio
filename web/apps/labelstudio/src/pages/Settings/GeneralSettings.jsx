@@ -34,7 +34,11 @@ export const GeneralSettings = () => {
             <Form.Row columnCount={1} rowGap="16px">
               <Input name="title" label={t("settings.general.form.nameLabel")} />
 
-              <TextArea name="description" label={t("settings.general.form.descriptionLabel")} style={{ minHeight: 128 }} />
+              <TextArea
+                name="description"
+                label={t("settings.general.form.descriptionLabel")}
+                style={{ minHeight: 128 }}
+              />
               {isFF(FF_LSDV_E_297) && (
                 <Block name="workspace-placeholder">
                   <Elem name="badge-wrapper">
@@ -65,7 +69,12 @@ export const GeneralSettings = () => {
                   </Typography>
                 </Block>
               )}
-              <RadioGroup name="color" label={t("settings.general.form.colorLabel")} size="large" labelProps={{ size: "large" }}>
+              <RadioGroup
+                name="color"
+                label={t("settings.general.form.colorLabel")}
+                size="large"
+                labelProps={{ size: "large" }}
+              >
                 {colors.map((color) => (
                   <RadioGroup.Button key={color} value={color}>
                     <Block name="color" style={{ "--background": color }} />
@@ -73,7 +82,12 @@ export const GeneralSettings = () => {
                 ))}
               </RadioGroup>
 
-              <RadioGroup label={t("settings.general.sampling.title")} labelProps={{ size: "large" }} name="sampling" simple>
+              <RadioGroup
+                label={t("settings.general.sampling.title")}
+                labelProps={{ size: "large" }}
+                name="sampling"
+                simple
+              >
                 {samplings.map(({ value, key }) => (
                   <RadioGroup.Button
                     key={value}

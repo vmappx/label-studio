@@ -10,6 +10,7 @@
     "viewAll": "查看全部",
     "cancel": "取消",
     "save": "保存",
+    "saveAndLeave": "保存并离开",
     "learnMore": "了解更多"
   },
   "menu": {
@@ -149,6 +150,96 @@
         },
         "errors": {
           "fileTooBig": "导入的文件过大"
+        }
+      },
+      "config": {
+        "title": "标注配置",
+        "browseTemplates": "浏览模板",
+        "browseTemplatesAria": "浏览标注模板",
+        "tabs": {
+          "code": "代码",
+          "visual": "可视化"
+        },
+        "empty": {
+          "title": "开始构建你的标注界面",
+          "description": "需要参考？查看所有可用的<link>Label Studio 标签</link>。"
+        },
+        "labels": {
+          "deleteAria": "删除标签",
+          "addChoicesTitle": "添加选项",
+          "addLabelsTitle": "添加标签",
+          "addHint": "将多个值用换行或逗号分隔。",
+          "addAria": "添加标签",
+          "addButton": "添加",
+          "choicesHeading": "{{count}} 个选项",
+          "labelsHeading": "{{count}} 个标签"
+        },
+        "settings": {
+          "title": "设置",
+          "options": {
+            "stroke_width": {
+              "title": "区域边框宽度"
+            },
+            "zoom": {
+              "title": "允许图像缩放（Ctrl + 滚轮）"
+            },
+            "zoom_control": {
+              "title": "显示缩放控制"
+            },
+            "rotate_control": {
+              "title": "显示旋转控制"
+            },
+            "granularity": {
+              "title": "按单词选择文本"
+            },
+            "place_labels_left": {
+              "title": "标签显示位置：",
+              "choices": {
+                "bottom": "下方",
+                "left": "左侧",
+                "right": "右侧",
+                "top": "上方"
+              }
+            },
+            "filter": {
+              "title": "为标签列表添加筛选器"
+            }
+          }
+        },
+        "columns": {
+          "title": "数据列",
+          "notEnoughData": "无法匹配足够的数据列来预览所有对象。",
+          "noData": "导入数据以映射到标注对象。",
+          "options": {
+            "imported": "使用导入字段",
+            "manual": "手动输入"
+          },
+          "labelSingle": "请选择 {{tag}} \"{{name}}\" 的 {{source}} 字段。",
+          "labelMultiple": "请选择 {{tag}} \"{{name}}\" 标签的 {{source}} 字段。",
+          "source": {
+            "field": "数据列",
+            "upload": "上传的数据"
+          }
+        },
+        "code": {
+          "parserError": "配置中包含语法错误。",
+          "tagsInfo": "需要帮助编写配置？<br/>查看所有可用的<link>Label Studio 标签</link>。"
+        },
+        "saveIndicator": "已保存",
+        "saveConfigurationAria": "保存标注配置",
+        "actions": {
+          "saving": "正在保存…"
+        },
+        "preview": {
+          "title": "界面预览",
+          "errorFallback": "无法加载预览。",
+          "loading": "正在加载预览…"
+        },
+        "unsavedChanges": {
+          "title": "你有未保存的更改。",
+          "body": "在离开之前要保存它们吗？",
+          "discard": "放弃并离开",
+          "saveAria": "保存更改"
         }
       }
     },

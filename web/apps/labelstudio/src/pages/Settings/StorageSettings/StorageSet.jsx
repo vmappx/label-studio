@@ -32,7 +32,9 @@ export const StorageSet = forwardRef(({ title, target, rootClass, buttonLabel },
     (storage) => {
       const modalTitle = t("settings.storage.modal.title", {
         action: t(storage ? "settings.storage.modal.actions.edit" : "settings.storage.modal.actions.connect"),
-        target: t(target === "export" ? "settings.storage.modal.targets.export" : "settings.storage.modal.targets.import"),
+        target: t(
+          target === "export" ? "settings.storage.modal.targets.export" : "settings.storage.modal.targets.import",
+        ),
       });
 
       const modalRef = modal({

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Spinner } from "../../../components";
 import { cn } from "../../../utils/bem";
 import "./Config.scss";
@@ -22,6 +23,7 @@ export const Preview = ({ config, data, error, loading, project }) => {
   // @see comment about dependencies above
   loadDependencies();
 
+  const { t } = useTranslation();
   const [storeReady, setStoreReady] = useState(false);
   const lsf = useRef(null);
   const rootRef = useRef();
@@ -141,11 +143,12 @@ export const Preview = ({ config, data, error, loading, project }) => {
 
   return (
     <div className={configClass.elem("preview")}>
-      <h3>UI Preview</h3>
+      <h3>{t("projects.createProject.config.preview.title")}</h3>
       {error && (
         <div className={configClass.elem("preview-error")}>
           <h2>
-            {error.detail} {error.id}
+            {error.detail ?? t("projects.createProject.config.preview.errorFallback")}
+            {error.id ? ` ${error.id}` : ""}
           </h2>
           {error.validation_errors?.non_field_errors?.map?.((err) => (
             <p key={err}>{err}</p>
@@ -158,7 +161,12 @@ export const Preview = ({ config, data, error, loading, project }) => {
           ))}
         </div>
       )}
-      {!data && loading && <Spinner style={{ width: "100%", height: "50vh" }} />}
+      {!data && loading && (
+        <Spinner
+          style={{ width: "100%", height: "50vh" }}
+          aria-label={t("projects.createProject.config.preview.loading")}
+        />
+      )}
       <div id="label-studio" className={configClass.elem("preview-ui")} ref={rootRef} />
     </div>
   );

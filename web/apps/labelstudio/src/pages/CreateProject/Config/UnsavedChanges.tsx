@@ -1,14 +1,16 @@
-import { useCallback, useRef, useState } from "react";
 import { Button } from "@humansignal/ui";
+import { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { LeaveBlocker, type LeaveBlockerCallbacks } from "../../../components/LeaveBlocker/LeaveBlocker";
 import { modal } from "../../../components/Modal/Modal";
 import { Space } from "../../../components/Space/Space";
 
 type SaveAndLeaveButtonProps = {
   onSave: () => Promise<void>;
-  text?: string;
+  text: string;
+  ariaLabel: string;
 };
-const SaveAndLeaveButton = ({ onSave, text = "Save and Leave" }: SaveAndLeaveButtonProps) => {
+const SaveAndLeaveButton = ({ onSave, text, ariaLabel }: SaveAndLeaveButtonProps) => {
   const [saving, setSaving] = useState(false);
   const saveHandler = useCallback(async () => {
     setSaving(true);
@@ -16,7 +18,7 @@ const SaveAndLeaveButton = ({ onSave, text = "Save and Leave" }: SaveAndLeaveBut
     setSaving(false);
   }, [onSave]);
   return (
-    <Button size="small" onClick={saveHandler} waiting={saving} aria-label="Save changes">
+    <Button size="small" onClick={saveHandler} waiting={saving} aria-label={ariaLabel}>
       {text}
     </Button>
   );
@@ -29,6 +31,7 @@ type UnsavedChangesModalProps = {
   cancelText?: string;
   discardText?: string;
   okText?: string;
+  saveAriaLabel?: string;
   title?: string;
   body?: string;
 };
@@ -37,14 +40,15 @@ export const unsavedChangesModal = ({
   onSave,
   onCancel,
   onDiscard,
-  cancelText,
-  discardText,
-  okText,
+  cancelText = "Cancel",
+  discardText = "Discard and leave",
+  okText = "Save and Leave",
+  saveAriaLabel = "Save changes",
   title = "You have unsaved changes.",
   body = "Would you like to save them before leaving?",
   ...props
 }: UnsavedChangesModalProps) => {
-  let modalInstance: any = undefined;
+  let modalInstance: ReturnType<typeof modal> | undefined;
   const saveAndLeave = async () => {
     await onSave?.();
     modalInstance?.close();
@@ -65,7 +69,7 @@ export const unsavedChangesModal = ({
           }}
           autoFocus
         >
-          {cancelText ?? "Cancel"}
+          {cancelText}
         </Button>
 
         {onDiscard && (
@@ -78,11 +82,11 @@ export const unsavedChangesModal = ({
             }}
             size="small"
           >
-            {discardText ?? "Discard and leave"}
+            {discardText}
           </Button>
         )}
 
-        <SaveAndLeaveButton onSave={saveAndLeave} text={okText} />
+        <SaveAndLeaveButton onSave={saveAndLeave} text={okText} ariaLabel={saveAriaLabel} />
       </Space>
     ),
     style: { width: 512 },
@@ -92,7 +96,7 @@ export const unsavedChangesModal = ({
 
 type UnsavedChangesProps = {
   hasChanges: boolean;
-  onSave: () => any;
+  onSave: () => boolean | void | Promise<boolean | void>;
 };
 
 /**
@@ -101,26 +105,36 @@ type UnsavedChangesProps = {
  * @param onSave - function that should be called to save changes
  */
 export const UnsavedChanges = ({ hasChanges, onSave }: UnsavedChangesProps) => {
+  const { t } = useTranslation();
   const saveHandlerRef = useRef(onSave);
   saveHandlerRef.current = onSave;
-  const blockHandler = useCallback(async ({ continueCallback, cancelCallback }: LeaveBlockerCallbacks) => {
-    const wrappedOnSave = async () => {
-      const result = await saveHandlerRef.current?.();
-      if (result === true) {
-        continueCallback && setTimeout(continueCallback, 0);
-      } else {
-        // We consider that user tries to save changes, but as long as there are some errors,
-        // we just close the modal to allow user to see and fix them
-        cancelCallback?.();
-      }
-    };
+  const blockHandler = useCallback(
+    async ({ continueCallback, cancelCallback }: LeaveBlockerCallbacks) => {
+      const wrappedOnSave = async () => {
+        const result = await saveHandlerRef.current?.();
+        if (result === true) {
+          continueCallback && setTimeout(continueCallback, 0);
+        } else {
+          // We consider that user tries to save changes, but as long as there are some errors,
+          // we just close the modal to allow user to see and fix them
+          cancelCallback?.();
+        }
+      };
 
-    unsavedChangesModal({
-      onSave: wrappedOnSave,
-      onCancel: cancelCallback,
-      onDiscard: continueCallback,
-    });
-  }, []);
+      unsavedChangesModal({
+        onSave: wrappedOnSave,
+        onCancel: cancelCallback,
+        onDiscard: continueCallback,
+        cancelText: t("actions.cancel"),
+        discardText: t("projects.createProject.config.unsavedChanges.discard"),
+        okText: t("actions.saveAndLeave"),
+        saveAriaLabel: t("projects.createProject.config.unsavedChanges.saveAria"),
+        title: t("projects.createProject.config.unsavedChanges.title"),
+        body: t("projects.createProject.config.unsavedChanges.body"),
+      });
+    },
+    [t],
+  );
 
   return <LeaveBlocker active={hasChanges} onBlock={blockHandler} />;
 };

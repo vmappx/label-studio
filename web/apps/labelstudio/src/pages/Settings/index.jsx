@@ -28,13 +28,7 @@ export const MenuLayout = ({ children, ...routeProps }) => {
     [DangerZone.path, t("settings.menu.dangerZone")],
   ].filter(Boolean);
 
-  return (
-    <SidebarMenu
-      menuItems={menuItems}
-      path={routeProps.match.url}
-      children={children}
-    />
-  );
+  return <SidebarMenu menuItems={menuItems} path={routeProps.match.url} children={children} />;
 };
 
 const pages = {

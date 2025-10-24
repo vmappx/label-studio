@@ -1,17 +1,13 @@
 import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StaticContent } from "../../app/StaticContent/StaticContent";
 import {
-  IconBook,
   IconFolder,
   IconHome,
   IconHotkeys,
   IconPeople,
   IconPersonInCircle,
   IconPin,
-  IconTerminal,
   IconDoor,
-  IconGithub,
-  IconSlack,
 } from "@humansignal/icons";
 import { LSLogo } from "../../assets/images";
 import { Button, Userpic, ThemeToggle } from "@humansignal/ui";
@@ -225,15 +221,23 @@ export const Menubar = ({ enabled, defaultOpened, defaultPinned, children, onSid
               style={{ width: 240 }}
             >
               <Menu>
-                {isFF(FF_HOMEPAGE) && <Menu.Item label={t("menu.home")} to="/" icon={<IconHome />} data-external exact />}
+                {isFF(FF_HOMEPAGE) && (
+                  <Menu.Item label={t("menu.home")} to="/" icon={<IconHome />} data-external exact />
+                )}
                 <Menu.Item label={t("menu.projects")} to="/projects" icon={<IconFolder />} data-external exact />
-                <Menu.Item label={t("menu.organization")} to="/organization" icon={<IconPeople />} data-external exact />
+                <Menu.Item
+                  label={t("menu.organization")}
+                  to="/organization"
+                  icon={<IconPeople />}
+                  data-external
+                  exact
+                />
 
                 <Menu.Spacer />
 
                 <VersionNotifier showNewVersion />
 
-                <Menu.Item
+                {/* <Menu.Item
                   label={t("menu.api")}
                   href="https://api.labelstud.io/api-reference/introduction/getting-started"
                   icon={<IconTerminal />}
@@ -246,14 +250,14 @@ export const Menubar = ({ enabled, defaultOpened, defaultPinned, children, onSid
                   icon={<IconGithub />}
                   target="_blank"
                   rel="noreferrer"
-                />
-                <Menu.Item
+                /> */}
+                {/* <Menu.Item
                   label={t("menu.slack")}
                   href="https://slack.labelstud.io/?source=product-menu"
                   icon={<IconSlack />}
                   target="_blank"
                   rel="noreferrer"
-                />
+                /> */}
 
                 <VersionNotifier showCurrentVersion />
 

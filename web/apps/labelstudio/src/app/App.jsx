@@ -62,24 +62,24 @@ const App = ({ content }) => {
       <ErrorBoundary>
         <Router history={browserHistory}>
           <MultiProvider
-          providers={[
-            <QueryClientProvider client={queryClient} key="query" />,
-            <JotaiProvider key="jotai" store={JotaiStore} />,
-            <AuthProvider key="auth" />,
-            <AppStoreProvider key="app-store" />,
-            <ToastProvider key="toast" />,
-            <ApiProvider key="api" />,
-            <ConfigProvider key="config" />,
-            <RoutesProvider key="rotes" />,
-            <ProjectProvider key="project" />,
-            ff.isActive(ff.FF_PRODUCT_TOUR) && <TourProvider useAPI={useAPI} />,
-          ].filter(Boolean)}
-        >
-          <AsyncPage>
-            <DraftGuard />
-            <RootPage content={content} />
-            <ToastViewport />
-          </AsyncPage>
+            providers={[
+              <QueryClientProvider client={queryClient} key="query" />,
+              <JotaiProvider key="jotai" store={JotaiStore} />,
+              <AuthProvider key="auth" />,
+              <AppStoreProvider key="app-store" />,
+              <ToastProvider key="toast" />,
+              <ApiProvider key="api" />,
+              <ConfigProvider key="config" />,
+              <RoutesProvider key="rotes" />,
+              <ProjectProvider key="project" />,
+              ff.isActive(ff.FF_PRODUCT_TOUR) && <TourProvider useAPI={useAPI} />,
+            ].filter(Boolean)}
+          >
+            <AsyncPage>
+              <DraftGuard />
+              <RootPage content={content} />
+              <ToastViewport />
+            </AsyncPage>
           </MultiProvider>
         </Router>
       </ErrorBoundary>

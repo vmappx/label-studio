@@ -6,7 +6,7 @@ import zhCommon from "./locales/zh/common.json";
 export const DEFAULT_LANGUAGE = "en";
 export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "English", shortLabel: "EN" },
-  { code: "zh", label: "中文", shortLabel: "中文" }
+  { code: "zh", label: "中文", shortLabel: "中文" },
 ] as const;
 
 const STORAGE_KEY = "label-studio.language";
@@ -42,9 +42,7 @@ const detectBrowserLanguage = (): string | null => {
     locales.push(navigator.language);
   }
 
-  const normalized = locales
-    .map((lng) => lng?.split?.("-")?.[0])
-    .filter(Boolean) as string[];
+  const normalized = locales.map((lng) => lng?.split?.("-")?.[0]).filter(Boolean) as string[];
 
   return normalized.find((lng) => resources[lng as keyof typeof resources]) ?? null;
 };

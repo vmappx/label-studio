@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import CM from "codemirror";
 import { Button, cnm } from "@humansignal/ui";
 import { IconTrash } from "@humansignal/icons";
@@ -22,21 +23,30 @@ import snakeCase from "lodash/snakeCase";
 const wizardClass = cn("wizard");
 const configClass = cn("configure");
 
-const EmptyConfigPlaceholder = () => (
-  <div className={configClass.elem("empty-config")}>
-    <p>Your labeling configuration is empty. It is required to label your data.</p>
-    <p>
-      Start from one of our predefined templates or create your own config on the Code panel. The labeling config is
-      XML-based and you can{" "}
-      <a href="https://labelstud.io/tags/" target="_blank" rel="noreferrer">
-        read about the available tags in our documentation
-      </a>
-      .
-    </p>
-  </div>
-);
+const EmptyConfigPlaceholder = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className={configClass.elem("empty-config")}>
+      <p>{t("projects.createProject.config.empty.title")}</p>
+      <p>
+        <Trans
+          i18nKey="projects.createProject.config.empty.description"
+          components={{
+            link: (
+              <a href="https://labelstud.io/tags/" target="_blank" rel="noreferrer">
+                {/* content provided by translation */}
+              </a>
+            ),
+          }}
+        />
+      </p>
+    </div>
+  );
+};
 
 const Label = ({ label, template, color }) => {
+  const { t } = useTranslation();
   const value = label.getAttribute("value");
 
   return (
@@ -66,7 +76,7 @@ const Label = ({ label, template, color }) => {
         size="smaller"
         variant="negative"
         onClick={() => template.removeLabel(label)}
-        aria-label="delete label"
+        aria-label={t("projects.createProject.config.labels.deleteAria")}
         className="hidden !p-0 z-10 absolute right-0 [&_span]:!p-0 group-hover:inline-flex"
         leading={<IconTrash className="w-4 h-4 fill-[currentColor]" />}
       />
@@ -75,6 +85,7 @@ const Label = ({ label, template, color }) => {
 };
 
 const ConfigureControl = ({ control, template }) => {
+  const { t } = useTranslation();
   const refLabels = React.useRef();
   const tagname = control.tagName;
 
@@ -96,8 +107,12 @@ const ConfigureControl = ({ control, template }) => {
   return (
     <div className={configClass.elem("labels")}>
       <form className={configClass.elem("add-labels")} action="">
-        <h4>{tagname === "Choices" ? "Add choices" : "Add label names"}</h4>
-        <span>Use new line as a separator to add multiple labels</span>
+        <h4>
+          {tagname === "Choices"
+            ? t("projects.createProject.config.labels.addChoicesTitle")
+            : t("projects.createProject.config.labels.addLabelsTitle")}
+        </h4>
+        <span>{t("projects.createProject.config.labels.addHint")}</span>
         <textarea
           name="labels"
           id=""
@@ -107,13 +122,21 @@ const ConfigureControl = ({ control, template }) => {
           onKeyPress={onKeyPress}
           className="lsf-textarea-ls p-2 px-3"
         />
-        <Button type="button" size="small" look="outlined" onClick={onAddLabels} aria-label="Add labels">
-          Add
+        <Button
+          type="button"
+          size="small"
+          look="outlined"
+          onClick={onAddLabels}
+          aria-label={t("projects.createProject.config.labels.addAria")}
+        >
+          {t("projects.createProject.config.labels.addButton")}
         </Button>
       </form>
       <div className={configClass.elem("current-labels")}>
         <h3>
-          {tagname === "Choices" ? "Choices" : "Labels"} ({control.children.length})
+          {tagname === "Choices"
+            ? t("projects.createProject.config.labels.choicesHeading", { count: control.children.length })
+            : t("projects.createProject.config.labels.labelsHeading", { count: control.children.length })}
         </h3>
         <ul>
           {Array.from(control.children).map((label) => (
@@ -131,6 +154,7 @@ const ConfigureControl = ({ control, template }) => {
 };
 
 const ConfigureSettings = ({ template }) => {
+  const { t } = useTranslation();
   const { settings } = template;
 
   if (!settings) return null;
@@ -152,9 +176,13 @@ const ConfigureSettings = ({ template }) => {
     if (value === "false") value = false;
     let onChange;
     let size;
+    const translationBase = `projects.createProject.config.settings.options.${snakeCase(key)}`;
+    const translatedTitle = t(`${translationBase}.title`, {
+      defaultValue: options.title ?? key,
+    });
 
     switch (type) {
-      case Array:
+      case Array: {
         onChange = (val) => {
           if (typeof options.param === "function") {
             options.param($tag, val);
@@ -163,19 +191,30 @@ const ConfigureSettings = ({ template }) => {
           }
           template.render();
         };
+        const translatedOptions = options.type.map((option) => ({
+          value: option,
+          label: t(`${translationBase}.choices.${snakeCase(option)}`, {
+            defaultValue: option,
+          }),
+        }));
         return (
           <li key={key}>
             <Select
               triggerClassName="border"
               value={value}
               onChange={onChange}
-              options={options.type}
-              label={options.title}
+              options={translatedOptions}
+              label={translatedTitle}
               isInline={true}
-              dataTestid={`select-trigger-${options.title.replace(/\s+/g, "-").replace(":", "").toLowerCase()}-${value}`}
+              dataTestid={`select-trigger-${(options.title ?? key)
+                .toString()
+                .replace(/\s+/g, "-")
+                .replace(":", "")
+                .toLowerCase()}-${value}`}
             />
           </li>
         );
+      }
       case Boolean:
         onChange = (e) => {
           if (typeof options.param === "function") {
@@ -188,7 +227,7 @@ const ConfigureSettings = ({ template }) => {
         return (
           <li key={key}>
             <Checkbox checked={value} onChange={onChange}>
-              {options.title}
+              {translatedTitle}
             </Checkbox>
           </li>
         );
@@ -205,8 +244,9 @@ const ConfigureSettings = ({ template }) => {
         };
         return (
           <li key={key}>
-            <label>
-              {options.title} <Input type="text" onInput={onChange} value={value} size={size} />
+            <label className="inline-flex items-center gap-2">
+              <span>{translatedTitle}</span>
+              <Input type="text" onInput={onChange} value={value} size={size} />
             </label>
           </li>
         );
@@ -219,7 +259,7 @@ const ConfigureSettings = ({ template }) => {
   return (
     <ul className={configClass.elem("settings")}>
       <li>
-        <h4>Configure settings</h4>
+        <h4>{t("projects.createProject.config.settings.title")}</h4>
         <ul className={configClass.elem("object-settings")}>{items}</ul>
       </li>
     </ul>
@@ -228,6 +268,7 @@ const ConfigureSettings = ({ template }) => {
 
 // configure value source for `obj` object tag
 const ConfigureColumn = ({ template, obj, columns }) => {
+  const { t } = useTranslation();
   const valueAttr = obj.hasAttribute("valueList") ? "valueList" : "value";
   const value = obj.getAttribute(valueAttr)?.replace(/^\$/, "");
   // if there is a value set already and it's not in the columns
@@ -280,15 +321,23 @@ const ConfigureColumn = ({ template, obj, columns }) => {
     const cols = (columns ?? []).map((col) => {
       return {
         value: col,
-        label: col === DEFAULT_COLUMN ? "<imported file>" : `$${col}`,
+        label: col === DEFAULT_COLUMN ? t("projects.createProject.config.columns.options.imported") : `$${col}`,
       };
     });
     if (!columns?.length) {
-      cols.push({ value, label: "<imported file>" });
+      cols.push({ value, label: t("projects.createProject.config.columns.options.imported") });
     }
-    cols.push({ value: "-", label: "<set manually>" });
+    cols.push({ value: "-", label: t("projects.createProject.config.columns.options.manual") });
     return cols;
-  }, [columns, DEFAULT_COLUMN, value]);
+  }, [columns, value, t]);
+
+  const sourceKey = columns?.length > 0 && columns[0] !== DEFAULT_COLUMN ? "field" : "upload";
+  const labelKey = template.objects.length > 1 ? "labelMultiple" : "labelSingle";
+  const selectLabel = t(`projects.createProject.config.columns.${labelKey}`, {
+    tag: obj.tagName.toLowerCase(),
+    name: obj.getAttribute("name"),
+    source: t(`projects.createProject.config.columns.source.${sourceKey}`),
+  });
 
   return (
     <>
@@ -297,14 +346,7 @@ const ConfigureColumn = ({ template, obj, columns }) => {
         value={isManual ? "-" : value}
         options={columnsList}
         isInline={true}
-        label={
-          <>
-            Use {obj.tagName.toLowerCase()}
-            {template.objects > 1 && ` for ${obj.getAttribute("name")}`}
-            {" from "}
-            {columns?.length > 0 && columns[0] !== DEFAULT_COLUMN && "field "}
-          </>
-        }
+        label={selectLabel}
         labelProps={{ className: "inline-flex" }}
         dataTestid={`select-trigger-use-image-from-field-${isManual ? "-" : value}`}
       />
@@ -314,19 +356,17 @@ const ConfigureColumn = ({ template, obj, columns }) => {
 };
 
 const ConfigureColumns = ({ columns, template }) => {
+  const { t } = useTranslation();
   if (!template.objects.length) return null;
 
   return (
     <div className={configClass.elem("object")}>
-      <h4>Configure data</h4>
+      <h4>{t("projects.createProject.config.columns.title")}</h4>
       {template.objects.length > 1 && columns?.length > 0 && columns.length < template.objects.length && (
-        <p className={configClass.elem("object-error")}>This template requires more data then you have for now</p>
+        <p className={configClass.elem("object-error")}>{t("projects.createProject.config.columns.notEnoughData")}</p>
       )}
       {columns?.length === 0 && (
-        <p className={configClass.elem("object-error")}>
-          To select which field(s) to label you need to upload the data. Alternatively, you can provide it using Code
-          mode.
-        </p>
+        <p className={configClass.elem("object-error")}>{t("projects.createProject.config.columns.noData")}</p>
       )}
       {template.objects.map((obj) => (
         <ConfigureColumn key={obj.getAttribute("name")} {...{ obj, template, columns }} />
@@ -348,6 +388,7 @@ const Configurator = ({
   warning,
   hasChanges,
 }) => {
+  const { t } = useTranslation();
   const [configure, setConfigure] = React.useState(isEmptyConfig(config) ? "code" : "visual");
   const [visualLoaded, loadVisual] = React.useState(configure === "visual");
   const [waiting, setWaiting] = React.useState(false);
@@ -427,12 +468,12 @@ const Configurator = ({
         setTemplate(config);
       } catch (e) {
         setParserError({
-          detail: "Parser error",
+          detail: t("projects.createProject.config.code.parserError"),
           validation_errors: [e.message],
         });
       }
     },
-    [setTemplate],
+    [setTemplate, t],
   );
 
   const onSave = async () => {
@@ -474,19 +515,27 @@ const Configurator = ({
 
   const extra = (
     <p className={configClass.elem("tags-link")}>
-      Configure the labeling interface with tags.
-      <br />
-      <a href="https://labelstud.io/tags/" target="_blank" rel="noreferrer">
-        See all available tags
-      </a>
-      .
+      <Trans
+        i18nKey="projects.createProject.config.code.tagsInfo"
+        components={{
+          br: <br />,
+          link: (
+            <a href="https://labelstud.io/tags/" target="_blank" rel="noreferrer">
+              {/* content from translation */}
+            </a>
+          ),
+        }}
+      />
     </p>
   );
 
   return (
     <div className={configClass}>
       <div className={configClass.elem("container")}>
-        <h1>Labeling Interface{hasChanges ? " *" : ""}</h1>
+        <h1>
+          {t("projects.createProject.config.title")}
+          {hasChanges ? " *" : ""}
+        </h1>
         <header>
           <Button
             type="button"
@@ -494,11 +543,18 @@ const Configurator = ({
             onClick={onBrowse}
             size="small"
             look="outlined"
-            aria-label="Browse templates"
+            aria-label={t("projects.createProject.config.browseTemplatesAria")}
           >
-            Browse Templates
+            {t("projects.createProject.config.browseTemplates")}
           </Button>
-          <ToggleItems items={{ code: "Code", visual: "Visual" }} active={configure} onSelect={onSelect} />
+          <ToggleItems
+            items={{
+              code: t("projects.createProject.config.tabs.code"),
+              visual: t("projects.createProject.config.tabs.visual"),
+            }}
+            active={configure}
+            onSelect={onSelect}
+          />
         </header>
         <div className={configClass.elem("editor")}>
           {configure === "code" && (
@@ -526,10 +582,10 @@ const Configurator = ({
                   hintOptions: { schemaInfo: tags },
                 }}
                 // don't close modal with Escape while editing config
-                onKeyDown={(editor, e) => {
+                onKeyDown={(_editor, e) => {
                   if (e.code === "Escape") e.stopPropagation();
                 }}
-                onChange={(editor, data, value) => onChange(value)}
+                onChange={(_editor, _data, value) => onChange(value)}
               />
             </div>
           )}
@@ -552,7 +608,7 @@ const Configurator = ({
             {saved && (
               <Block name="form-indicator">
                 <Elem tag="span" mod={{ type: "success" }} name="item">
-                  Saved!
+                  {t("projects.createProject.config.saveIndicator")}
                 </Elem>
               </Block>
             )}
@@ -561,9 +617,9 @@ const Configurator = ({
               className="w-[120px]"
               onClick={onSave}
               waiting={waiting}
-              aria-label="Save configuration"
+              aria-label={t("projects.createProject.config.saveConfigurationAria")}
             >
-              {waiting ? "Saving..." : "Save"}
+              {waiting ? t("projects.createProject.config.actions.saving") : t("actions.save")}
             </Button>
             {isFF(FF_UNSAVED_CHANGES) && <UnsavedChanges hasChanges={hasChanges} onSave={onSave} />}
           </Form.Actions>
